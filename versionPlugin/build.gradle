@@ -1,0 +1,33 @@
+
+plugins {
+    id("java-gradle-plugin")
+    id("org.jetbrains.kotlin.jvm") version "1.7.10"
+}
+
+repositories {
+    google()
+    mavenCentral()
+    gradlePluginPortal()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+dependencies {
+    //添加Gradle相关的API，否则无法自定义Plugin和Task
+    implementation(gradleApi())
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10")
+}
+
+gradlePlugin {
+    plugins {
+        version {
+            // 在 app 模块需要通过 id 引用这个插件
+            id = 'com.dd.version'
+            // 实现这个插件的类的路径
+            implementationClass = 'com.dd.version.VersionPlugin'
+        }
+    }
+}

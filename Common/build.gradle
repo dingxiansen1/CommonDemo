@@ -1,0 +1,60 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.dd.version'
+}
+
+import com.dd.version.*
+
+android {
+    namespace 'com.dd.common'
+    compileSdk Android.compileSdk
+
+    defaultConfig {
+        minSdk Android.minSdk
+        targetSdk Android.targetSdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = Kotlin.kotlinJvmTarget
+    }
+}
+
+dependencies {
+    implementation(AndroidX.core)
+    testImplementation(AndroidTest.junit)
+    androidTestImplementation(AndroidTest.ext)
+    androidTestImplementation(AndroidTest.espresso)
+
+    implementation project(path: ':Utils')
+
+    //kotlin 协程
+    api Kotlin.core
+    api Kotlin.android
+    // datastore数据保存，用于cookie持久化
+    implementation Jetpack.datastore_preferences
+    implementation Jetpack.datastore_core
+    //App Startup
+    implementation Jetpack.startup
+    //leakcanary
+    debugImplementation Other.leakcanary
+    //okhttp3
+    api Other.okhttp3
+    //coil图片加载
+    api(Other.coil)
+    api(Other.coil_gif)
+    api(Other.coil_compose)
+}
