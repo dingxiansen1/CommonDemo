@@ -66,5 +66,6 @@ dependencies {
     androidTestImplementation AndroidTest.espresso
     androidTestImplementation AndroidTest.compose
     debugImplementation Compose.ui_tooling
-
+    implementation project(path: ':BasicCompose')
+    implementation project(path: ':Common')
 }
