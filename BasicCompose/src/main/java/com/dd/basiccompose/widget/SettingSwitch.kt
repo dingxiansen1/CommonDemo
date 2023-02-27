@@ -50,7 +50,7 @@ fun SettingSwitch(
                     imageVector = icon,
                     contentDescription = title,
                     modifier = Modifier
-                        .padding(start = 8.dp, end = 16.dp)
+                        .padding(end = 16.dp)
                         .size(24.dp),
                     tint = iconTint
                 )

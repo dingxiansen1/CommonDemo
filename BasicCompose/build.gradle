@@ -67,9 +67,14 @@ dependencies {
     implementation project(path: ':Utils')
     implementation project(path: ':Common')
 
+    //一个提供易于使用的实用程序的库，用于从 Jetpack Compose 重新着色 Android 系统条。
+    api Compose.accompanist_insets
+    api Compose.accompanist_systemuicontroller
     //viewPager
-    api Compose.viewpager
-    api Compose.viewpager_indicators
+    api Compose.accompanist_viewpager
+    api Compose.accompanist_viewpager_indicators
+    //webView
+    //api Compose.accompanist_web
 
     implementation Compose.navigation
 }

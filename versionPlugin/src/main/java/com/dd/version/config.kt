@@ -32,9 +32,6 @@ object Android {
 object AndroidX{
    const val core = "androidx.core:core-ktx:1.9.0"
    const val splashscreen = "androidx.core:core-splashscreen:1.0.0"
-   const val accompanist_insets = "com.google.accompanist:accompanist-insets:0.18.0"
-   const val accompanist_systemuicontroller = "com.google.accompanist:accompanist-systemuicontroller:0.18.0"
-   const val accompanist_coil = "com.google.accompanist:accompanist-coil:0.15.0"
 }
 object AndroidTest{
    const val junit = "junit:junit:4.13.2"
@@ -87,10 +84,14 @@ object Compose{
    const val icon= "androidx.compose.material:material-icons-extended"
 
 
-   private const val viewpaper_version = "0.25.0"
-   const val viewpager= "com.google.accompanist:accompanist-pager:${viewpaper_version}"
-   const val viewpager_indicators= "com.google.accompanist:accompanist-pager-indicators:${viewpaper_version}"
-   const val flowlayout= "com.google.accompanist:accompanist-flowlayout:${viewpaper_version}"
+   private const val accompanist_version = "0.28.0"
+   const val accompanist_insets = "com.google.accompanist:accompanist-insets:${accompanist_version}"
+   const val accompanist_systemuicontroller = "com.google.accompanist:accompanist-systemuicontroller:${accompanist_version}"
+   const val accompanist_coil = "com.google.accompanist:accompanist-coil:${accompanist_version}"
+   const val accompanist_viewpager= "com.google.accompanist:accompanist-pager:${accompanist_version}"
+   const val accompanist_viewpager_indicators= "com.google.accompanist:accompanist-pager-indicators:${accompanist_version}"
+   const val accompanist_flowlayout= "com.google.accompanist:accompanist-flowlayout:${accompanist_version}"
+   const val accompanist_web= "com.google.accompanist:accompanist-webview:${accompanist_version}"
 }
 
 object Other{
