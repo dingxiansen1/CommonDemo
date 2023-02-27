@@ -40,7 +40,10 @@ dependencies {
     androidTestImplementation(AndroidTest.espresso)
 
     implementation project(path: ':Utils')
-
+    //lifecycle
+    api Jetpack.lifecycle_runtime
+    api Jetpack.lifecycle_livedata
+    api Jetpack.lifecycle_viewmodel
     //kotlin 协程
     api Kotlin.core
     api Kotlin.android

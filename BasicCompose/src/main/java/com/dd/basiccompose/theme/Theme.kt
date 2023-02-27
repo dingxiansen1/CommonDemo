@@ -5,7 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import com.dd.common.utils.ThemeUtils
+import androidx.compose.runtime.collectAsState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorScheme = darkColorScheme(
@@ -21,11 +21,12 @@ private val LightColorScheme = lightColorScheme(
 fun AppThemeDefault(
     content: @Composable () -> Unit
 ) {
+    val mAppTheme = ThemeUtils.mAppTheme.collectAsState().value
     val colorScheme = when {
-        ThemeUtils.mIsFollowTheSystem -> {
+        mAppTheme.mIsFollowTheSystem -> {
             if (isSystemInDarkTheme()) DarkColorScheme else LightColorScheme
         }
-        ThemeUtils.mIsNightModel -> DarkColorScheme
+        mAppTheme.mIsNightModel -> DarkColorScheme
         else -> LightColorScheme
     }
     val uiSystem = rememberSystemUiController()
