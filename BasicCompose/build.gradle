@@ -54,6 +54,8 @@ dependencies {
     implementation(AndroidX.core)
     implementation(Compose.ui)
     implementation(Compose.material3)
+    implementation(Compose.foundation)
+    implementation(Compose.animation)
     implementation(Compose.ui_tooling_preview)
     implementation(Compose.activity)
     implementation(Compose.icon)
@@ -69,11 +71,12 @@ dependencies {
 
     //lifecycle
     api Jetpack.lifecycle_runtime
+    api Jetpack.lifecycle_runtime_compose
     api Jetpack.lifecycle_livedata
     api Jetpack.lifecycle_viewmodel
+    api Jetpack.lifecycle_viewmodel_compose
 
     //一个提供易于使用的实用程序的库，用于从 Jetpack Compose 重新着色 Android 系统条。
-    api Compose.accompanist_insets
     api Compose.accompanist_systemuicontroller
     //viewPager
     api Compose.accompanist_viewpager

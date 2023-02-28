@@ -10,7 +10,7 @@ val LocalNavController = compositionLocalOf<NavHostController> {
 
 fun NavHostController.go(
     url: String,
-    isLaunchSingleTop: Boolean = true,
+    isLaunchSingleTop: Boolean = false,
     needToRestoreState: Boolean = true,
 ) {
     this.navigate(url) {
