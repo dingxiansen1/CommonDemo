@@ -1,4 +1,4 @@
-package com.dd.basiccompose.widget
+package com.dd.basiccompose.widget.item
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable

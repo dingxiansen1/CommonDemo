@@ -20,14 +20,14 @@ object ThemeUtils {
 
     fun setFollowTheSystem(value: Boolean) {
         mAppTheme.update {
-            it.copy(mIsFollowTheSystem = value)
+            it.copy(mIsFollowTheSystem = value, mIsNightModel = false)
         }
         DataStoreUtils.putSyncData(IS_FOLLOW_THE_SYSTEM, value)
     }
 
     fun setNightModel(value: Boolean) {
         mAppTheme.update {
-            it.copy(mIsNightModel = value)
+            it.copy(mIsNightModel = value, mIsFollowTheSystem = false)
         }
         DataStoreUtils.putSyncData(IS_NIGHT_MODEL, value)
     }

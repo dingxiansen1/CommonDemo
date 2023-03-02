@@ -1,5 +1,6 @@
-package com.dd.basiccompose.widget
+package com.dd.basiccompose.widget.item
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -17,6 +18,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.dd.basiccompose.widget.Switch
 
 @Preview
 @Composable
@@ -28,6 +30,7 @@ fun SettingSwitchPreview() {
     ) {}
 }
 
+@SuppressLint("ModifierParameter")
 @Composable
 fun SettingSwitch(
     title: String = "",
@@ -36,13 +39,14 @@ fun SettingSwitch(
     iconTint: Color = MaterialTheme.colorScheme.onSurface,
     enabled: Boolean = true,
     isChecked: Boolean = true,
+    modifier: Modifier = Modifier
+        .fillMaxWidth()
+        .padding(16.dp, 20.dp),
     onClick: () -> Unit = {},
 ) {
     Surface(modifier = if (enabled) Modifier.clickable { onClick() } else Modifier) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp, 20.dp),
+            modifier = modifier,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             icon?.let {
@@ -50,8 +54,8 @@ fun SettingSwitch(
                     imageVector = icon,
                     contentDescription = title,
                     modifier = Modifier
-                        .padding(end = 16.dp)
-                        .size(24.dp),
+                        .padding(start = 8.dp, end = 16.dp)
+                        .size(25.dp),
                     tint = iconTint
                 )
             }
