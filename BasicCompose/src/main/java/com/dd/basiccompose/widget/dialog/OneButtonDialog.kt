@@ -16,15 +16,13 @@ import androidx.compose.ui.tooling.preview.Preview
  * 如：带不同颜色或带有超链接的正文
  **/
 @Composable
-fun TwoButtonDialog(
+fun OneButtonDialog(
     onDismissRequest: (() -> Unit) = {},
     icon: @Composable (() -> Unit)? = null,
     title: String = "",
     titleStyle: TextStyle = MaterialTheme.typography.titleLarge,
     confirm: String = "确定",
     onConfirmClick: (() -> Unit) = {},
-    cancel: String = "取消",
-    onCancelClick: (() -> Unit) = {},
     text: @Composable (() -> Unit) = { },
 ) {
     AlertDialog(
@@ -60,31 +58,15 @@ fun TwoButtonDialog(
                 )
             }
         },
-        dismissButton = {
-            Button(
-                modifier = Modifier,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.background
-                ),
-                onClick = { onCancelClick.invoke() }
-            ) {
-                Text(
-                    text = cancel,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-            }
-        }
     )
 
 }
-
 
 /**
  * 适用于不需要自定义正文的确定弹窗
  **/
 @Composable
-fun TwoButtonDialog(
+fun OneButtonDialog(
     onDismissRequest: (() -> Unit) = {},
     icon: @Composable (() -> Unit)? = null,
     title: String = "",
@@ -93,8 +75,6 @@ fun TwoButtonDialog(
     textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
     confirm: String = "确定",
     onConfirmClick: (() -> Unit) = {},
-    cancel: String = "取消",
-    onCancelClick: (() -> Unit) = {},
 ) {
     AlertDialog(
         onDismissRequest = {
@@ -132,21 +112,6 @@ fun TwoButtonDialog(
                 )
             }
         },
-        dismissButton = {
-            Button(
-                modifier = Modifier,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.background
-                ),
-                onClick = { onCancelClick.invoke() }
-            ) {
-                Text(
-                    text = cancel,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-            }
-        }
     )
 
 }
@@ -154,8 +119,8 @@ fun TwoButtonDialog(
 
 @Preview
 @Composable
-fun TwoButtonDialogPreview() {
-    TwoButtonDialog(
+fun OneButtonDialogPreview() {
+    OneButtonDialog(
         icon = {
             Icon(
                 imageVector = Icons.Default.Collections,
