@@ -41,12 +41,15 @@ dependencies {
 
     implementation project(path: ':Utils')
     //lifecycle
-    api Jetpack.lifecycle_runtime
-    api Jetpack.lifecycle_livedata
-    api Jetpack.lifecycle_viewmodel
+    //lifecycle
+    implementation Jetpack.lifecycle_runtime
+    implementation Jetpack.lifecycle_runtime_compose
+    implementation Jetpack.lifecycle_livedata
+    implementation Jetpack.lifecycle_viewmodel
+    implementation Jetpack.lifecycle_viewmodel_compose
     //kotlin 协程
-    api Kotlin.core
-    api Kotlin.android
+    implementation Kotlin.core
+    implementation Kotlin.android
     // datastore数据保存，用于cookie持久化
     implementation Jetpack.datastore_preferences
     implementation Jetpack.datastore_core
@@ -55,9 +58,9 @@ dependencies {
     //leakcanary
     debugImplementation Other.leakcanary
     //okhttp3
-    api Other.okhttp3
+    implementation Other.okhttp3
     //coil图片加载
-    api(Other.coil)
-    api(Other.coil_gif)
-    api(Other.coil_compose)
+    implementation(Other.coil)
+    implementation(Other.coil_gif)
+    implementation(Other.coil_compose)
 }

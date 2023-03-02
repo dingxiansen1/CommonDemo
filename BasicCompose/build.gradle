@@ -68,21 +68,27 @@ dependencies {
 
     implementation project(path: ':Utils')
     implementation project(path: ':Common')
-
+    //kotlin 协程
+    implementation Kotlin.core
+    implementation Kotlin.android
+    // splashscreen
+    implementation AndroidX.splashscreen
     //lifecycle
-    api Jetpack.lifecycle_runtime
-    api Jetpack.lifecycle_runtime_compose
-    api Jetpack.lifecycle_livedata
-    api Jetpack.lifecycle_viewmodel
-    api Jetpack.lifecycle_viewmodel_compose
+    implementation Jetpack.lifecycle_runtime
+    implementation Jetpack.lifecycle_runtime_compose
+    implementation Jetpack.lifecycle_livedata
+    implementation Jetpack.lifecycle_viewmodel
+    implementation Jetpack.lifecycle_viewmodel_compose
 
-    //一个提供易于使用的实用程序的库，用于从 Jetpack Compose 重新着色 Android 系统条。
-    api Compose.accompanist_systemuicontroller
+    //一个系统状态栏库
+    implementation Compose.accompanist_systemuicontroller
     //viewPager
-    api Compose.accompanist_viewpager
-    api Compose.accompanist_viewpager_indicators
-    //webView
-    //api Compose.accompanist_web
-
+    implementation Compose.accompanist_viewpager
+    implementation Compose.accompanist_viewpager_indicators
+    //compose 路由导航库
     implementation Compose.navigation
+    //coil图片加载
+    implementation(Other.coil)
+    implementation(Other.coil_gif)
+    implementation(Other.coil_compose)
 }
