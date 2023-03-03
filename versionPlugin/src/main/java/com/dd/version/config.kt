@@ -1,9 +1,67 @@
 package com.dd.version
 
-import com.dd.version.Version.compose_version
+import org.gradle.api.artifacts.dsl.DependencyHandler
+
+fun DependencyHandler.kapt(list: List<String>) {
+    list.forEach { dependency ->
+        add("kapt", dependency)
+    }
+}
+
+fun DependencyHandler.implementation(list: List<String>) {
+    list.forEach { dependency ->
+        add("implementation", dependency)
+    }
+}
 
 object Version {
     const val compose_version = "1.4.1"
+
+    /**
+     *  通用的添加进一个集合里
+     **/
+    val ComposeLibrary = arrayListOf<String>().apply {
+        add(Compose.ui)
+        add(Compose.material3)
+        add(Compose.foundation)
+        add(Compose.animation)
+        add(Compose.activity)
+        add(Compose.ui_tooling_preview)
+        add(Compose.icon)
+        //compose 路由导航库
+        add(Compose.navigation)
+    }
+
+
+
+    val AppLibrary = arrayListOf<String>().apply {
+        add(AndroidX.core)
+        add(AndroidX.appcompat)
+        //kotlin 协程
+        add(Kotlin.core)
+        add(Kotlin.android)
+        // splashscreen 启动页
+        add(AndroidX.splashscreen)
+        //lifecycle
+        add(Jetpack.lifecycle_runtime)
+        add(Jetpack.lifecycle_runtime_compose)
+        add(Jetpack.lifecycle_viewmodel)
+        add(Jetpack.lifecycle_viewmodel_compose)
+        add(Jetpack.lifecycle_livedata)
+
+        add(Jetpack.datastore_core)
+        add(Jetpack.datastore_preferences)
+        //App Startup 启动优化
+        add(Jetpack.startup)
+        //paging3
+        add(Jetpack.paging)
+        add(Jetpack.paging_compose)
+
+        //coil图片加载
+        add(Other.coil)
+        add(Other.coil_compose)
+        add(Other.coil_gif)
+    }
 }
 
 object Maven {

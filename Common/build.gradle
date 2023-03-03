@@ -34,33 +34,14 @@ android {
 }
 
 dependencies {
-    implementation(AndroidX.core)
+    implementation(Version.AppLibrary)
+
     testImplementation(AndroidTest.junit)
     androidTestImplementation(AndroidTest.ext)
     androidTestImplementation(AndroidTest.espresso)
 
     implementation project(path: ':Utils')
-    //lifecycle
-    //lifecycle
-    implementation Jetpack.lifecycle_runtime
-    implementation Jetpack.lifecycle_runtime_compose
-    implementation Jetpack.lifecycle_livedata
-    implementation Jetpack.lifecycle_viewmodel
-    implementation Jetpack.lifecycle_viewmodel_compose
-    //kotlin 协程
-    implementation Kotlin.core
-    implementation Kotlin.android
-    // datastore数据保存，用于cookie持久化
-    implementation Jetpack.datastore_preferences
-    implementation Jetpack.datastore_core
-    //App Startup
-    implementation Jetpack.startup
+
     //leakcanary
     debugImplementation Other.leakcanary
-    //okhttp3
-    implementation Other.okhttp3
-    //coil图片加载
-    implementation(Other.coil)
-    implementation(Other.coil_gif)
-    implementation(Other.coil_compose)
 }
