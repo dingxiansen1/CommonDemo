@@ -1,12 +1,9 @@
 package com.dd.utils
 
-import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import androidx.annotation.Keep
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
 
-object ApplicationUtils{
+object ApplicationUtils {
 
     val appInfo by lazy {
         val appInfo = AppInfo()
@@ -24,13 +21,6 @@ object ApplicationUtils{
                 }
         }
         appInfo
-    }
-
-    fun setLanguage(locale: String) {
-        val localeListCompat =
-            if (locale.isEmpty()) LocaleListCompat.getEmptyLocaleList()
-            else LocaleListCompat.forLanguageTags(locale)
-            AppCompatDelegate.setApplicationLocales(localeListCompat)
     }
 }
 
