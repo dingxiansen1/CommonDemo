@@ -32,6 +32,7 @@ object Android {
 
 object AndroidX {
     const val core = "androidx.core:core-ktx:1.9.0"
+    const val appcompat = "androidx.appcompat:appcompat:1.6.0"
     const val splashscreen = "androidx.core:core-splashscreen:1.0.0"
 }
 

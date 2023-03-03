@@ -35,6 +35,7 @@ android {
 
 dependencies {
     implementation(AndroidX.core)
+    implementation(AndroidX.appcompat)
     testImplementation(AndroidTest.junit)
     androidTestImplementation(AndroidTest.ext)
     androidTestImplementation(AndroidTest.espresso)
