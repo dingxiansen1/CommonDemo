@@ -28,7 +28,7 @@ fun SingleChoiceItem(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp, 16.dp),
+                .padding(16.dp, 20.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Column(

@@ -19,7 +19,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun AppThemeDefault(
+fun DefaultTheme(
     content: @Composable () -> Unit
 ) {
     val appTheme by ThemeUtils.mAppTheme.collectAsStateWithLifecycle()
