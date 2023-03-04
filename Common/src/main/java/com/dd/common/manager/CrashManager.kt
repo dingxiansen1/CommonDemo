@@ -89,9 +89,8 @@ object CrashManager : Thread.UncaughtExceptionHandler {
                 val fos = FileOutputStream(path + fileName)
                 fos.write(sb.toString().toByteArray())
                 fos.close()
-                Log.e(TAG, " path+fileName ：${ path+fileName}")
-                return path+fileName
-            }else{
+                return path + fileName
+            } else {
                 return null
             }
         } catch (e: Exception) {
