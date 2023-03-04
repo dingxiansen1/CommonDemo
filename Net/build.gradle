@@ -3,11 +3,11 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'com.dd.version'
 }
-
 import com.dd.version.*
 
 android {
-    namespace 'com.dd.common'
+    namespace 'com.dd.net'
+
     compileSdk Android.compileSdk
 
     defaultConfig {
@@ -34,15 +34,6 @@ android {
 }
 
 dependencies {
-    implementation(Version.AppLibrary)
-
-    testImplementation(AndroidTest.junit)
-    androidTestImplementation(AndroidTest.ext)
-    androidTestImplementation(AndroidTest.espresso)
-
-    implementation project(path: ':Utils')
-    implementation project(path: ':Net')
-
-    //leakcanary
-    debugImplementation Other.leakcanary
+    implementation(Version.CoroutineLibrary)
+    implementation(Version.NetLibrary)
 }

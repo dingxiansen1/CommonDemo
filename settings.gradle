@@ -13,8 +13,9 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "CommonDemo"
+includeBuild("versionPlugin")
 include ':app'
 include ':BasicCompose'
 include ':Common'
 include ':Utils'
-includeBuild("versionPlugin")
+include ':Net'

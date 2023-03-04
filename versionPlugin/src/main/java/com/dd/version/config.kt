@@ -33,14 +33,18 @@ object Version {
         add(Compose.navigation)
     }
 
-
+    //kotlin 协程
+    val CoroutineLibrary = arrayListOf<String>().apply {
+        //kotlin 协程
+        add(Kotlin.core)
+        add(Kotlin.android)
+    }
 
     val AppLibrary = arrayListOf<String>().apply {
         add(AndroidX.core)
         add(AndroidX.appcompat)
         //kotlin 协程
-        add(Kotlin.core)
-        add(Kotlin.android)
+        addAll(CoroutineLibrary)
         // splashscreen 启动页
         add(AndroidX.splashscreen)
         //lifecycle
@@ -62,6 +66,13 @@ object Version {
         add(Other.coil)
         add(Other.coil_compose)
         add(Other.coil_gif)
+    }
+
+    val NetLibrary = arrayListOf<String>().apply {
+        add(Other.okhttp3)
+        add(Other.retrofit)
+        add(Other.retrofit_gson)
+        add(Other.jsoup)
     }
 }
 
@@ -183,6 +194,8 @@ object Other {
     private const val retrofit2_version = "2.9.0"
     const val retrofit = "com.squareup.retrofit2:retrofit:$retrofit2_version"
     const val retrofit_gson = "com.squareup.retrofit2:converter-gson:$retrofit2_version"
+
+    const val jsoup = "org.jsoup:jsoup:1.15.4"
 
     const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
 
