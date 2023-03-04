@@ -28,6 +28,7 @@ object Version {
         add(Compose.activity)
         add(Compose.ui_tooling_preview)
         add(Compose.icon)
+       // add(Compose.text)
         //compose 路由导航库
         add(Compose.navigation)
     }
@@ -152,7 +153,8 @@ object Compose {
 
     const val navigation = "androidx.navigation:navigation-compose:2.6.0-alpha01"
     const val icon = "androidx.compose.material:material-icons-extended"
-
+    // 谷歌提供字体Api  //https://developer.android.google.cn/jetpack/compose/text?hl=zh-cn#downloadable-fonts
+    const val text = "androidx.compose.ui:ui-text-google-fonts:1.3.0"
 
     private const val accompanist_version = "0.28.0"
     const val accompanist_insets =
