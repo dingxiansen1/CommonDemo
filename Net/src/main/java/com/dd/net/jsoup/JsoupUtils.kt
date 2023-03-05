@@ -1,5 +1,6 @@
 package com.dd.net.jsoup
 
+import com.dd.net.okhttp.newCallResponseBody
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.retry
@@ -20,23 +21,56 @@ object JsoupUtils {
 
     /**
      * 根据 url 解析html获取内容
+     * @link  目标地址解析后的Document节点
+     * @retry  失败重试
+     **/
+    suspend fun getHtmlByOkhttp(link: String, retry: Int = 3): Flow<Document?> {
+        return flow {
+            val html = getProxyClient().newCallResponseBody(retry) {
+                url(link)
+            }
+            val data = Jsoup.parse(html.toString())
+            emit(data)
+        }
+    }
+
+    /**
+     * 根据 url 解析html获取内容
      * @url  目标地址解析后的Document节点
+     * @retry  失败重试
      **/
     suspend fun getHtmlByJsoup(url: String, retry: Long = 3): Flow<Document?> {
         return flow {
-            emit(Jsoup.connect(url).get())
+            val data = Jsoup
+                .connect(url)
+                .timeout(1000 * 5)
+                .header(HtmlConstant.Keep_Alive_Name, HtmlConstant.Keep_Alive_Value)
+                .header(HtmlConstant.Connection_Name, HtmlConstant.Connection_Value)
+                .header(HtmlConstant.Cache_Control_Name, HtmlConstant.Cache_Control_Value)
+                .get()
+            emit(data)
         }.retry(retry) {
-            when (it) {
-                is TimeoutException -> {
-                    true
-                }
-                is HttpException -> {
-                    false
-                }
-                else -> {
-                    false
-                }
-            }
+            it is TimeoutException
+        }
+    }
+
+    /**
+     * 根据 url 解析html获取内容
+     * @url  目标地址解析后的Document节点
+     * @retry  失败重试
+     **/
+    suspend fun postHtmlByJsoup(url: String, retry: Long = 3): Flow<Document?> {
+        return flow {
+            val data = Jsoup
+                .connect(url)
+                .timeout(1000 * 5)
+                .header(HtmlConstant.Keep_Alive_Name, HtmlConstant.Keep_Alive_Value)
+                .header(HtmlConstant.Connection_Name, HtmlConstant.Connection_Value)
+                .header(HtmlConstant.Cache_Control_Name, HtmlConstant.Cache_Control_Value)
+                .post()
+            emit(data)
+        }.retry(retry) {
+            it is TimeoutException
         }
     }
 
