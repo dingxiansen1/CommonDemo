@@ -36,6 +36,7 @@ android {
 dependencies {
     implementation(AndroidX.core)
     implementation(AndroidX.appcompat)
+    implementation(AndroidX.androidPaletteKtx)
     testImplementation(AndroidTest.junit)
     androidTestImplementation(AndroidTest.ext)
     androidTestImplementation(AndroidTest.espresso)

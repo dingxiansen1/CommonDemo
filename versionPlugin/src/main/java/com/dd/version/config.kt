@@ -43,6 +43,7 @@ object Version {
     val AppLibrary = arrayListOf<String>().apply {
         add(AndroidX.core)
         add(AndroidX.appcompat)
+        add(AndroidX.androidPaletteKtx)
         //kotlin 协程
         addAll(CoroutineLibrary)
         // splashscreen 启动页
@@ -104,6 +105,7 @@ object AndroidX {
     const val core = "androidx.core:core-ktx:1.9.0"
     const val appcompat = "androidx.appcompat:appcompat:1.6.0"
     const val splashscreen = "androidx.core:core-splashscreen:1.0.0"
+    const val androidPaletteKtx = "androidx.palette:palette-ktx:1.0.0"
 }
 
 object AndroidTest {

@@ -1,10 +1,19 @@
 package com.dd.utils
 
+import android.R.attr.bitmap
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.provider.MediaStore
+import androidx.palette.graphics.Palette
+import java.io.IOException
+import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.MalformedURLException
+import java.net.URL
+
 
 /**
  * 保存图片到相册
@@ -45,3 +54,14 @@ private fun Bitmap.saveToPhoto(
         return false
     }
 }
+
+
+/**
+ * 获取bitmap的主要颜色
+ **/
+fun Bitmap.generateDominantColorState(): Palette.Swatch = Palette.Builder(this)
+    .resizeBitmapArea(0)
+    .maximumColorCount(16)
+    .generate()
+    .swatches
+    .maxByOrNull { swatch -> swatch.population }!!
