@@ -1,12 +1,7 @@
 package com.dd.basiccompose.navigation
 
-import androidx.compose.runtime.compositionLocalOf
 import androidx.navigation.NavHostController
 
-
-val LocalNavController = compositionLocalOf<NavHostController> {
-    error("Not Init")
-}
 
 fun NavHostController.go(
     url: String,
