@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.retry
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import retrofit2.HttpException
 import java.util.concurrent.TimeoutException
 
 
@@ -24,7 +23,7 @@ object JsoupUtils {
      * @link  目标地址解析后的Document节点
      * @retry  失败重试
      **/
-    suspend fun getHtmlByOkhttp(link: String, retry: Int = 3): Flow<Document?> {
+    suspend fun getHtmlByOkhttpFlow(link: String, retry: Int = 3): Flow<Document?> {
         return flow {
             val html = getProxyClient().newCallResponseBody(retry) {
                 url(link)
@@ -34,6 +33,17 @@ object JsoupUtils {
         }
     }
 
+    /**
+     * 根据 url 解析html获取内容
+     * @link  目标地址解析后的Document节点
+     * @retry  失败重试
+     **/
+    suspend fun getHtmlByOkhttp(link: String, retry: Int = 3): Document? {
+        val html = getProxyClient().newCallResponseBody(retry) {
+            url(link)
+        }
+        return Jsoup.parse(html.toString())
+    }
     /**
      * 根据 url 解析html获取内容
      * @url  目标地址解析后的Document节点
