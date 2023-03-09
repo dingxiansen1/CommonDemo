@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.dd.basiccompose.navigation.LocalNavController
+import com.dd.basiccompose.controller.LocalNavController
 
 @SuppressLint("ModifierParameter")
 @OptIn(ExperimentalMaterial3Api::class)
