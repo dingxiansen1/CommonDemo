@@ -133,7 +133,7 @@ fun Banner(
                 mutableStateOf(false)
             }
 
-            val loopState = remember {
+            val loopState by remember {
                 mutableStateOf(looping)
             }
             LaunchedEffect(key1 = Unit) {
@@ -149,8 +149,7 @@ fun Banner(
                 }
             }
 
-            val looping = loopState.value
-            if (underDragging.not() && looping) {
+            if (underDragging.not() && loopState) {
                 LaunchedEffect(key1 = underDragging) {
                     try {
                         while (true) {
