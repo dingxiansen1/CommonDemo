@@ -1,6 +1,7 @@
 package com.dd.basiccompose.widget
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
@@ -20,10 +21,7 @@ import com.dd.basiccompose.controller.LocalNavController
 fun DefaultTopBarBack(
     title: String,
     modifier: Modifier = Modifier,
-    imageVector1: ImageVector? = null,
-    imageVector2: ImageVector? = null,
-    onClickImageVector1: (() -> Unit) = {},
-    onClickImageVector2: (() -> Unit) = {},
+    actions: @Composable RowScope.() -> Unit = {},
     navCtrl: NavHostController = LocalNavController.current,
 ) {
     TopAppBar(
@@ -42,16 +40,7 @@ fun DefaultTopBarBack(
             }
         },
         actions = {
-            imageVector1?.let {
-                IconButton(onClick = { onClickImageVector1.invoke() }) {
-                    Icon(imageVector1, null, tint = MaterialTheme.colorScheme.onBackground)
-                }
-            }
-            imageVector2?.let {
-                IconButton(onClick = { onClickImageVector2.invoke() }) {
-                    Icon(imageVector2, null, tint = MaterialTheme.colorScheme.onBackground)
-                }
-            }
+            actions.invoke(this)
         },
     )
 }
