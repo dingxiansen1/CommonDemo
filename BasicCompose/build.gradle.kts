@@ -1,10 +1,11 @@
+import com.dd.version.*
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("com.dd.application")
 }
 
-import com.dd.version.*
 
 android {
     namespace = "com.dd.basiccompose"
@@ -44,7 +45,7 @@ dependencies {
 
     //BOM自动确认compose依赖的版本号
     implementation(platform("androidx.compose:compose-bom:2023.01.00"))
-    implementation(com.dd.version.Library.coilLibrary)
+    implementation(com.dd.version.Library.composeLibrary)
 
     testImplementation(AndroidTest.junit)
     androidTestImplementation(AndroidTest.ext)

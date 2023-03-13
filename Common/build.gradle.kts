@@ -1,10 +1,10 @@
+import com.dd.version.*
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("com.dd.application")
 }
 
-import com.dd.version.*
 
 android {
     namespace = "com.dd.common"
