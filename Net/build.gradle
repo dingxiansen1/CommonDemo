@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'com.dd.version'
+    id 'com.dd.application'
 }
 import com.dd.version.*
 
@@ -34,6 +34,6 @@ android {
 }
 
 dependencies {
-    implementation(Version.CoroutineLibrary)
-    implementation(Version.NetLibrary)
+    implementation(Library.INSTANCE.coroutineLibrary)
+    implementation(Library.INSTANCE.netLibrary)
 }

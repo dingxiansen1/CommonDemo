@@ -2,12 +2,6 @@ package com.dd.version
 
 import org.gradle.api.artifacts.dsl.DependencyHandler
 
-fun DependencyHandler.kapt(list: List<String>) {
-    list.forEach { dependency ->
-        add("kapt", dependency)
-    }
-}
-
 fun DependencyHandler.implementation(list: List<String>) {
     list.forEach { dependency ->
         add("implementation", dependency)
@@ -16,65 +10,6 @@ fun DependencyHandler.implementation(list: List<String>) {
 
 object Version {
     const val compose_version = "1.4.1"
-
-    /**
-     *  通用的添加进一个集合里
-     **/
-    val ComposeLibrary = arrayListOf<String>().apply {
-        add(Compose.ui)
-        add(Compose.material3)
-        add(Compose.foundation)
-        add(Compose.animation)
-        add(Compose.activity)
-        add(Compose.ui_tooling_preview)
-        add(Compose.icon)
-       // add(Compose.text)
-        //compose 路由导航库
-        add(Compose.navigation)
-    }
-
-    //kotlin 协程
-    val CoroutineLibrary = arrayListOf<String>().apply {
-        //kotlin 协程
-        add(Kotlin.core)
-        add(Kotlin.android)
-    }
-
-    val AppLibrary = arrayListOf<String>().apply {
-        add(AndroidX.core)
-        add(AndroidX.appcompat)
-        add(AndroidX.androidPaletteKtx)
-        //kotlin 协程
-        addAll(CoroutineLibrary)
-        // splashscreen 启动页
-        add(AndroidX.splashscreen)
-        //lifecycle
-        add(Jetpack.lifecycle_runtime)
-        add(Jetpack.lifecycle_runtime_compose)
-        add(Jetpack.lifecycle_viewmodel)
-        add(Jetpack.lifecycle_viewmodel_compose)
-        add(Jetpack.lifecycle_livedata)
-
-        add(Jetpack.datastore_core)
-        add(Jetpack.datastore_preferences)
-        //App Startup 启动优化
-        add(Jetpack.startup)
-        //paging3
-        add(Jetpack.paging)
-        add(Jetpack.paging_compose)
-
-        //coil图片加载
-        add(Other.coil)
-        add(Other.coil_compose)
-        add(Other.coil_gif)
-    }
-
-    val NetLibrary = arrayListOf<String>().apply {
-        add(Other.okhttp3)
-        add(Other.retrofit)
-        add(Other.retrofit_gson)
-        add(Other.jsoup)
-    }
 }
 
 object Maven {
@@ -147,7 +82,7 @@ object Jetpack {
     const val paging_compose = "androidx.paging:paging-compose:1.0.0-alpha12"
     const val room = "androidx.room:room-ktx:$room_version"
     const val room_runtime = "androidx.room:room-runtime:$room_version"
-    const val room_compiler = "androidx.room:room-compiler:$room_version"
+    const val room_kapt = "androidx.room:room-compiler:$room_version"
 }
 
 object Compose {
@@ -166,6 +101,7 @@ object Compose {
 
     const val navigation = "androidx.navigation:navigation-compose:2.6.0-alpha01"
     const val icon = "androidx.compose.material:material-icons-extended"
+
     // 谷歌提供字体Api  //https://developer.android.google.cn/jetpack/compose/text?hl=zh-cn#downloadable-fonts
     const val text = "androidx.compose.ui:ui-text-google-fonts:1.3.0"
 
