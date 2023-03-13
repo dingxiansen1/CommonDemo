@@ -81,7 +81,6 @@ fun SearchBar(
     hint: String = "",
     textColor: Color = MaterialTheme.colorScheme.onBackground,
     backgroundColor: Color = MaterialTheme.colorScheme.surfaceColorAtElevation(5.dp),
-    onClose: () -> Unit = {},
     onTextChanged: ((String) -> Unit)
 ) {
     BasicTextField(
@@ -110,17 +109,16 @@ fun SearchBar(
                     )
                 },
                 trailingIcon = {
-                    IconButton(onClick = {
-                        if (text.isNotEmpty())
+                    if (text.isNotEmpty()) {
+                        IconButton(onClick = {
                             onTextChanged("")
-                        else
-                            onClose()
-                    }) {
-                        Icon(
-                            imageVector = Icons.Filled.Close,
-                            contentDescription = Icons.Filled.Close.name,
-                            tint = textColor,
-                        )
+                        }) {
+                            Icon(
+                                imageVector = Icons.Filled.Close,
+                                contentDescription = Icons.Filled.Close.name,
+                                tint = textColor,
+                            )
+                        }
                     }
                 },
                 singleLine = true,
