@@ -4,6 +4,8 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("com.dd.application")
+    id("com.dd.compose")
+    id("com.dd.test")
 }
 
 
@@ -42,16 +44,6 @@ android {
 }
 
 dependencies {
-
-    //BOM自动确认compose依赖的版本号
-    implementation(platform("androidx.compose:compose-bom:2023.01.00"))
-    implementation(com.dd.version.Library.composeLibrary)
-
-    testImplementation(AndroidTest.junit)
-    androidTestImplementation(AndroidTest.ext)
-    androidTestImplementation(AndroidTest.espresso)
-    androidTestImplementation(AndroidTest.compose)
-    debugImplementation(Compose.ui_tooling)
 
     implementation(project(":Utils"))
     implementation(project(":Common"))

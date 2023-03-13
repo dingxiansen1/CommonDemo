@@ -1,5 +1,4 @@
-package com.dd.version
-
+import com.dd.version.Jetpack
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies

@@ -4,6 +4,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("com.dd.application")
+    id("com.dd.test")
 }
 
 
@@ -32,7 +33,4 @@ dependencies {
     implementation(AndroidX.core)
     implementation(AndroidX.appcompat)
     implementation(AndroidX.androidPaletteKtx)
-    testImplementation(AndroidTest.junit)
-    androidTestImplementation(AndroidTest.ext)
-    androidTestImplementation(AndroidTest.espresso)
 }
