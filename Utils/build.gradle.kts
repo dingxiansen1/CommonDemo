@@ -2,7 +2,6 @@ import com.dd.version.*
 
 plugins {
     id("com.dd.library")
-    id("com.dd.common")
     id("com.dd.test")
 }
 
@@ -32,4 +31,5 @@ dependencies {
     implementation(AndroidX.core)
     implementation(AndroidX.appcompat)
     implementation(AndroidX.androidPaletteKtx)
+    implementation(Jetpack.startup)
 }
