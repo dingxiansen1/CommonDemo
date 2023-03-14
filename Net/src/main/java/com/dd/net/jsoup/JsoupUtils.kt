@@ -1,9 +1,11 @@
 package com.dd.net.jsoup
 
 import com.dd.net.okhttp.newCallResponseBody
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.retry
+import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.util.concurrent.TimeoutException
@@ -17,6 +19,8 @@ import java.util.concurrent.TimeoutException
  **/
 
 object JsoupUtils {
+
+    const val TAG = "JsoupUtils"
 
     /**
      * 根据 url 解析html获取内容
@@ -49,18 +53,14 @@ object JsoupUtils {
      * @url  目标地址解析后的Document节点
      * @retry  失败重试
      **/
-    suspend fun getHtmlByJsoup(url: String, retry: Long = 3): Flow<Document?> {
-        return flow {
-            val data = Jsoup
-                .connect(url)
+    suspend fun getHtmlByJsoup(url: String): Document? {
+        return withContext(Dispatchers.IO) {
+            return@withContext Jsoup.connect(url)
                 .timeout(1000 * 5)
                 .header(HtmlConstant.Keep_Alive_Name, HtmlConstant.Keep_Alive_Value)
                 .header(HtmlConstant.Connection_Name, HtmlConstant.Connection_Value)
                 .header(HtmlConstant.Cache_Control_Name, HtmlConstant.Cache_Control_Value)
                 .get()
-            emit(data)
-        }.retry(retry) {
-            it is TimeoutException
         }
     }
 
