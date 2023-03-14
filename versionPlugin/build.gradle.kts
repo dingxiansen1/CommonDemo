@@ -18,16 +18,29 @@ java {
 dependencies {
     //添加Gradle相关的API，否则无法自定义Plugin和Task
     implementation(gradleApi())
+    implementation("com.android.tools.build:gradle:7.4.0")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10")
 }
 
 gradlePlugin {
     plugins {
+        register("app") {
+            // 在 app 模块需要通过 id 引用这个插件
+            id = "com.dd.app"
+            // 实现这个插件的类的路径
+            implementationClass = "AppConventionPlugin"
+        }
+        register("Library") {
+            // 在 app 模块需要通过 id 引用这个插件
+            id = "com.dd.library"
+            // 实现这个插件的类的路径
+            implementationClass = "LibraryConventionPlugin"
+        }
         register("androidApplication") {
             // 在 app 模块需要通过 id 引用这个插件
-            id = "com.dd.application"
+            id = "com.dd.common"
             // 实现这个插件的类的路径
-            implementationClass = "AndroidApplicationConventionPlugin"
+            implementationClass = "CommonConventionPlugin"
         }
         register("Compose") {
             // 在 app 模块需要通过 id 引用这个插件

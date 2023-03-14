@@ -1,9 +1,8 @@
 import com.dd.version.*
 
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("com.dd.application")
+    id("com.dd.library")
+    id("com.dd.common")
     id("com.dd.test")
 }
 

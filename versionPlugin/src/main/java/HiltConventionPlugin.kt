@@ -6,6 +6,10 @@ import org.gradle.kotlin.dsl.dependencies
 class HiltConventionPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         with(project) {
+            //添加插件
+            with(pluginManager) {
+                apply("dagger.hilt.android.plugin")
+            }
             dependencies {
                 add("implementation", Jetpack.hilt)
                 add("implementation", Jetpack.hilt_navigation)
