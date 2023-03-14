@@ -62,6 +62,7 @@ object Jetpack {
     private const val datastore_version = "1.0.0"
     private const val hilt_version = "2.44"
     private const val room_version = "2.4.2"
+    private const val work_version = "2.7.1"
     const val lifecycle_runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
     const val lifecycle_runtime_compose =
         "androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version"
@@ -83,6 +84,9 @@ object Jetpack {
     const val room = "androidx.room:room-ktx:$room_version"
     const val room_runtime = "androidx.room:room-runtime:$room_version"
     const val room_kapt = "androidx.room:room-compiler:$room_version"
+    //WorkManager  持久性工作或定时任务
+    const val work = "androidx.work:work-runtime-ktx:$work_version"//基础使用
+    const val work_multiprocess = "androidx.work:work-multiprocess:$work_version" //跨进程时引用
 }
 
 object Compose {
