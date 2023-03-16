@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
+import com.dd.common.utils.DataStoreUtils.dataStore
+import com.dd.utils.Utils
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
@@ -34,18 +36,12 @@ import java.io.IOException
 object DataStoreUtils {
 
     private const val preferenceName = "DataStore"
+
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(preferenceName)
 
-    private lateinit var dataStore: DataStore<Preferences>
-
-    /**
-     * init Context
-     * @param context Context
-     */
-    fun init(context: Context) {
-        dataStore = context.dataStore
+    private val dataStore by lazy {
+        Utils.getApp().dataStore
     }
-
 
     @Suppress("UNCHECKED_CAST")
     fun <U> getSyncData(key: String, default: U): U {

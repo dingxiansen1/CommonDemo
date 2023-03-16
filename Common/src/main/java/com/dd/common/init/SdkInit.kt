@@ -9,7 +9,5 @@ import com.dd.utils.Utils
 object SdkInit {
 
     fun init(context: Context) {
-        DataStoreUtils.init(context)
-        Utils.init(context as Application)
     }
 }
