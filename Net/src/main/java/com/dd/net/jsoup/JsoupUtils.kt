@@ -1,6 +1,8 @@
 package com.dd.net.jsoup
 
 import com.dd.net.okhttp.newCallResponseBody
+import com.dd.utils.log.LogUtils
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -22,6 +24,10 @@ object JsoupUtils {
 
     const val TAG = "JsoupUtils"
 
+    private val coroutineExceptionHandler =
+        CoroutineExceptionHandler { coroutineContext, throwable ->
+            LogUtils.d(TAG,"coroutineExceptionHandler ：" +throwable.message.toString())
+        }
     /**
      * 根据 url 解析html获取内容
      * @link  目标地址解析后的Document节点
@@ -54,9 +60,9 @@ object JsoupUtils {
      * @retry  失败重试
      **/
     suspend fun getHtmlByJsoup(url: String): Document? {
-        return withContext(Dispatchers.IO) {
+        return withContext(Dispatchers.Default+coroutineExceptionHandler) {
             return@withContext Jsoup.connect(url)
-                .timeout(1000 * 5)
+                .timeout(1000 * 30)
                 .header(HtmlConstant.Keep_Alive_Name, HtmlConstant.Keep_Alive_Value)
                 .header(HtmlConstant.Connection_Name, HtmlConstant.Connection_Value)
                 .header(HtmlConstant.Cache_Control_Name, HtmlConstant.Cache_Control_Value)
