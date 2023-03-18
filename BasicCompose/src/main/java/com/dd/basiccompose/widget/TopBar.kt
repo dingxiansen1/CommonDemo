@@ -23,6 +23,7 @@ fun DefaultTopBarBack(
     modifier: Modifier = Modifier,
     actions: @Composable RowScope.() -> Unit = {},
     navCtrl: NavHostController = LocalNavController.current,
+    onClick: () -> Unit = {},
 ) {
     TopAppBar(
         title = {
@@ -32,11 +33,16 @@ fun DefaultTopBarBack(
         colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = MaterialTheme.colorScheme.background),
         navigationIcon = {
             IconButton(
-
                 onClick = {
+                    onClick.invoke()
                     navCtrl.navigateUp()
-                }) {
-                Icon(Icons.Filled.ArrowBack, null, tint = MaterialTheme.colorScheme.onBackground)
+                }
+            ) {
+                Icon(
+                    Icons.Filled.ArrowBack,
+                    Icons.Filled.ArrowBack.name,
+                    tint = MaterialTheme.colorScheme.onBackground
+                )
             }
         },
         actions = {
