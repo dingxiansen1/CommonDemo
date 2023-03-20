@@ -27,7 +27,6 @@ fun DefaultTopBarBack(
             Text(text = title, style = MaterialTheme.typography.titleLarge)
         },
         modifier = modifier,
-        colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = MaterialTheme.colorScheme.background),
         navigationIcon = {
             IconButton(
                 onClick = {
