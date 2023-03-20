@@ -61,7 +61,7 @@ object Jetpack {
     private const val lifecycle_version = "2.6.0-alpha05"
     private const val datastore_version = "1.0.0"
     private const val hilt_version = "2.44"
-    private const val room_version = "2.4.2"
+    private const val room_version = "2.5.0"
     private const val work_version = "2.7.1"
     const val lifecycle_runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
     const val lifecycle_runtime_compose =
@@ -79,10 +79,11 @@ object Jetpack {
     const val hilt_navigation = "androidx.hilt:hilt-navigation-compose:1.1.0-alpha01"
 
 
-    const val paging = "androidx.paging:paging-runtime:3.0.1"
-    const val paging_compose = "androidx.paging:paging-compose:1.0.0-alpha12"
+    const val paging = "androidx.paging:paging-runtime:3.1.1"
+    const val paging_compose = "androidx.paging:paging-compose:1.0.0-alpha18"
     const val room = "androidx.room:room-ktx:$room_version"
     const val room_runtime = "androidx.room:room-runtime:$room_version"
+    const val room_paging = "androidx.room:room-paging:$room_version"
     const val room_kapt = "androidx.room:room-compiler:$room_version"
     //WorkManager  持久性工作或定时任务
     const val work = "androidx.work:work-runtime-ktx:$work_version"//基础使用

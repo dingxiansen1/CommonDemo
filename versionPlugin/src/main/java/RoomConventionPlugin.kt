@@ -9,6 +9,7 @@ class RoomConventionPlugin : Plugin<Project> {
             dependencies {
                 add("implementation", Jetpack.room_runtime)
                 add("implementation", Jetpack.room)
+                add("implementation", Jetpack.room_paging)
                 add("kapt", Jetpack.room_kapt)
             }
         }
