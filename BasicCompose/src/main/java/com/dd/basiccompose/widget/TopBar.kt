@@ -57,11 +57,8 @@ fun DefaultTopBar(
     title: String,
     modifier: Modifier = Modifier,
     leftIcon: ImageVector? = null,
+    actions: @Composable RowScope.() -> Unit = {},
     leftClick: (() -> Unit) = {},
-    imageVector1: ImageVector? = null,
-    imageVector2: ImageVector? = null,
-    onClickImageVector1: (() -> Unit) = {},
-    onClickImageVector2: (() -> Unit) = {},
 ) {
     TopAppBar(
         title = {
@@ -82,16 +79,7 @@ fun DefaultTopBar(
             }
         },
         actions = {
-            imageVector1?.let {
-                IconButton(onClick = { onClickImageVector1.invoke() }) {
-                    Icon(imageVector1, null, tint = MaterialTheme.colorScheme.onBackground)
-                }
-            }
-            imageVector2?.let {
-                IconButton(onClick = { onClickImageVector2.invoke() }) {
-                    Icon(imageVector2, null, tint = MaterialTheme.colorScheme.onBackground)
-                }
-            }
+            actions.invoke(this)
         },
     )
 }
