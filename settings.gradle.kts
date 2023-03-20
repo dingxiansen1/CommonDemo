@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("../CommonDemo/versionPlugin")
     repositories {
         google()
         mavenCentral()
@@ -13,9 +14,7 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "CommonDemo"
-includeBuild("versionPlugin")
-include ':app'
-include ':BasicCompose'
-include ':Common'
-include ':Utils'
-include ':Net'
+include(":app")
+include(":BasicCompose")
+include(":Utils")
+include(":Net")
