@@ -1,7 +1,6 @@
 import com.dd.version.*
 
 plugins {
-    id("kotlinx-serialization")
     //通过自定义插件进行版本控制
     id("com.dd.app")
     id("com.dd.common")

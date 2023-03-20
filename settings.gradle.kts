@@ -16,5 +16,6 @@ dependencyResolutionManagement {
 rootProject.name = "CommonDemo"
 include(":app")
 include(":BasicCompose")
+include(":Common")
 include(":Utils")
 include(":Net")
