@@ -35,6 +35,9 @@ dependencies {
     implementation(project(":Utils"))
     implementation(project(":Net"))
 
+    implementation(Jetpack.work)
+
     //leakcanary
     debugImplementation(Other.leakcanary)
+
 }
