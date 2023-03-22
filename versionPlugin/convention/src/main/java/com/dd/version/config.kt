@@ -125,6 +125,7 @@ object Compose {
     const val accompanist_flowlayout =
         "com.google.accompanist:accompanist-flowlayout:${accompanist_version}"
     const val accompanist_web = "com.google.accompanist:accompanist-webview:${accompanist_version}"
+    const val accompanist_permissions = "com.google.accompanist:accompanist-permissions:${accompanist_version}"
 }
 
 object Other {

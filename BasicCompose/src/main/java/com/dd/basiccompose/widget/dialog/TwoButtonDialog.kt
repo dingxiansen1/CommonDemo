@@ -91,10 +91,10 @@ fun TwoButtonDialog(
     titleStyle: TextStyle = MaterialTheme.typography.titleLarge,
     text: String = "",
     textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
-    confirm: String = "确定",
-    onConfirmClick: (() -> Unit) = {},
     cancel: String = "取消",
     onCancelClick: (() -> Unit) = {},
+    confirm: String = "确定",
+    onConfirmClick: (() -> Unit) = {},
 ) {
     AlertDialog(
         onDismissRequest = {
