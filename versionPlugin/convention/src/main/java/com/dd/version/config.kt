@@ -92,7 +92,7 @@ object Jetpack {
 
 object Compose {
     //BOM自动确认compose依赖的版本号
-    const val bom = "androidx.compose:compose-bom:2023.01.00"
+    const val bom = "androidx.compose:compose-bom:2023.03.00"
     const val activity = "androidx.activity:activity-compose"
     const val ui = "androidx.compose.ui:ui"
     const val material = "androidx.compose.material:material"

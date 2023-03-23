@@ -38,7 +38,7 @@ object JsoupUtils {
             val html = getProxyClient().newCallResponseBody(retry) {
                 url(link)
             }
-            val data = Jsoup.parse(html.toString())
+            val data = Jsoup.parse(html.string())
             emit(data)
         }
     }
@@ -52,7 +52,7 @@ object JsoupUtils {
         val html = getProxyClient().newCallResponseBody(retry) {
             url(link)
         }
-        return Jsoup.parse(html.toString())
+        return Jsoup.parse(html.string())
     }
     /**
      * 根据 url 解析html获取内容
