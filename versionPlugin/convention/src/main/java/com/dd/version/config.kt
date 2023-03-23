@@ -79,7 +79,7 @@ object Jetpack {
     const val hilt_navigation = "androidx.hilt:hilt-navigation-compose:1.1.0-alpha01"
 
 
-    const val paging = "androidx.paging:paging-runtime:3.1.1"
+    const val paging = "androidx.paging:paging-runtime:3.2.0-alpha04"
     const val paging_compose = "androidx.paging:paging-compose:1.0.0-alpha18"
     const val room = "androidx.room:room-ktx:$room_version"
     const val room_runtime = "androidx.room:room-runtime:$room_version"
