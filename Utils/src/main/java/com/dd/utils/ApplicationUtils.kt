@@ -13,10 +13,10 @@ object ApplicationUtils {
                 ?.let {
                     appInfo.versionName = it.versionName
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
-                        appInfo.versionCode = it.longVersionCode.toString()
+                        appInfo.versionCode = it.longVersionCode
                     } else {
                         @Suppress("DEPRECATION")
-                        appInfo.versionCode = it.versionCode.toString()
+                        appInfo.versionCode = it.versionCode.toLong()
                     }
                 }
         }
@@ -26,6 +26,6 @@ object ApplicationUtils {
 
 @Keep
 data class AppInfo(
-    var versionCode: String = "",
+    var versionCode: Long = 0,
     var versionName: String = ""
 )

@@ -33,7 +33,7 @@ object CrashManager : Thread.UncaughtExceptionHandler {
         val map = HashMap<String, String>()
         ApplicationUtils.appInfo.let {
             map["versionName"] = it.versionName
-            map["versionCode"] = it.versionCode
+            map["versionCode"] = it.versionCode.toString()
         }
         map
     }

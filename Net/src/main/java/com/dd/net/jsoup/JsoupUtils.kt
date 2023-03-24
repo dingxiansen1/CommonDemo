@@ -51,8 +51,8 @@ object JsoupUtils {
     suspend fun getHtmlByOkhttp(link: String, retry: Int = 3): Document? {
         val html = getProxyClient().newCallResponseBody(retry) {
             url(link)
-        }
-        return Jsoup.parse(html.string())
+        }.string()
+        return Jsoup.parse(html)
     }
     /**
      * 根据 url 解析html获取内容
