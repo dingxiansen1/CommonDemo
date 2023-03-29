@@ -21,7 +21,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import coil.annotation.ExperimentalCoilApi
 import coil.compose.AsyncImage
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -53,11 +52,10 @@ interface BannerData {
  * [onClick] 轮播图点击事件
  */
 @OptIn(ExperimentalPagerApi::class)
-@ExperimentalCoilApi
 @Composable
 fun Banner(
-    modifier: Modifier = Modifier,
     list: List<BannerData>?,
+    modifier: Modifier = Modifier,
     paddingValues: Dp = 0.dp,
     looping: Boolean = true,
     timeMillis: Long = 3000,
