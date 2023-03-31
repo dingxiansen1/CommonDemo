@@ -1,6 +1,7 @@
 package com.dd.basiccompose.widget
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
@@ -22,28 +23,15 @@ fun DefaultTopBarBack(
     navCtrl: NavHostController = LocalNavController.current,
     onClick: () -> Unit = {},
 ) {
-    TopAppBar(
-        title = {
-            Text(text = title, style = MaterialTheme.typography.titleLarge)
-        },
+    DefaultTopBar(
+        title = title,
         modifier = modifier,
-        navigationIcon = {
-            IconButton(
-                onClick = {
-                    onClick.invoke()
-                    navCtrl.navigateUp()
-                }
-            ) {
-                Icon(
-                    Icons.Filled.ArrowBack,
-                    Icons.Filled.ArrowBack.name,
-                    tint = MaterialTheme.colorScheme.onBackground
-                )
-            }
-        },
-        actions = {
-            actions.invoke(this)
-        },
+        leftIcon = Icons.Filled.ArrowBack,
+        actions = actions,
+        leftClick = {
+            onClick.invoke()
+            navCtrl.navigateUp()
+        }
     )
 }
 
@@ -67,7 +55,7 @@ fun DefaultTopBar(
                     onClick = {
                         leftClick.invoke()
                     }) {
-                    Icon(leftIcon, null, tint = MaterialTheme.colorScheme.onBackground)
+                    Icon(leftIcon, leftIcon.name, tint = MaterialTheme.colorScheme.onBackground)
                 }
             }
         },

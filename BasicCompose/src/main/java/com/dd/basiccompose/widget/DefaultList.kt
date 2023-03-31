@@ -24,15 +24,14 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImage
 import com.dd.basiccompose.theme.transparent
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun <T : Any> SwipeRefreshList(
+fun <T : Any> DefaultList(
     lazyPagingItems: LazyPagingItems<T>,
     modifier: Modifier = Modifier,
-    listState: LazyListState = rememberLazyListState(),
+    lazyListState: LazyListState = rememberLazyListState(),
     refresh: () -> Unit,
     refreshImage: Int,
     errorView: (@Composable () -> Unit)? = null,
@@ -45,23 +44,21 @@ fun <T : Any> SwipeRefreshList(
     }
     // 用协程模拟一个耗时加载
     val scope = rememberCoroutineScope()
-    val state = rememberPullRefreshState(refreshing = refreshing, onRefresh = {
+    val refreshState = rememberPullRefreshState(refreshing = refreshing, onRefresh = {
         scope.launch {
             refreshing = true
             refresh.invoke()
-            //有BUG时间太快会卡着，暂时加延迟
-            delay(1000)
             refreshing = false
         }
     })
     Box(
         modifier = modifier
             .fillMaxSize()
-            .pullRefresh(state)
+            .pullRefresh(refreshState)
     ) {
         LazyColumn(
             Modifier.fillMaxWidth(),
-            state = listState
+            state = lazyListState
         ) {
             //条目布局
             itemContent()
@@ -104,7 +101,7 @@ fun <T : Any> SwipeRefreshList(
                 .padding(if (refreshing) 120.dp else 0.dp) //因为加载动画会缩回去导致显示不下，正在刷新时加个top
                 .size(200.dp)
                 .align(Alignment.TopCenter)
-                .pullRefreshIndicatorTransform(state, true),
+                .pullRefreshIndicatorTransform(refreshState, true),
             color = transparent,
         ) {
             Box {
