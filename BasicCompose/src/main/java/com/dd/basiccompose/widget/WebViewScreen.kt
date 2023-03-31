@@ -22,7 +22,7 @@ import com.google.accompanist.web.*
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
-fun WebScreen(
+fun WebViewScreen(
     webUrl: String,
     title: String?,
     navCtrl: NavHostController,
