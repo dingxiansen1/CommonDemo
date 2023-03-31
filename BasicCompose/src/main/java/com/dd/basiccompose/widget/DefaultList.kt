@@ -6,119 +6,70 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.pullrefresh.pullRefresh
-import androidx.compose.material.pullrefresh.pullRefreshIndicatorTransform
-import androidx.compose.material.pullrefresh.rememberPullRefreshState
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import coil.compose.AsyncImage
-import com.dd.basiccompose.theme.transparent
-import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun <T : Any> DefaultList(
     lazyPagingItems: LazyPagingItems<T>,
     modifier: Modifier = Modifier,
     lazyListState: LazyListState = rememberLazyListState(),
-    refresh: () -> Unit,
-    refreshImage: Int,
     errorView: (@Composable () -> Unit)? = null,
     loadingView: (@Composable () -> Unit)? = null,
     noMoreView: (@Composable () -> Unit)? = null,
     itemContent: LazyListScope.() -> Unit,
 ) {
-    var refreshing by remember {
-        mutableStateOf(false)
-    }
-    // 用协程模拟一个耗时加载
-    val scope = rememberCoroutineScope()
-    val refreshState = rememberPullRefreshState(refreshing = refreshing, onRefresh = {
-        scope.launch {
-            refreshing = true
-            refresh.invoke()
-            refreshing = false
-        }
-    })
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .pullRefresh(refreshState)
-    ) {
-        LazyColumn(
-            Modifier.fillMaxWidth(),
-            state = lazyListState
-        ) {
-            //条目布局
-            itemContent()
-            //加载更多状态：加载中和加载错误,没有更多
-            if (!refreshing) {
-                item {
-                    lazyPagingItems.apply {
-                        when (loadState.append) {
-                            is LoadState.Loading -> {
-                                if (loadingView != null) {
-                                    loadingView.invoke()
-                                } else {
-                                    LoadingItem()
-                                }
-                            }
-                            is LoadState.Error -> {
-                                if (errorView != null) {
-                                    errorView.invoke()
-                                } else {
-                                    ErrorItem { retry() }
-                                }
 
-                            }
-                            is LoadState.NotLoading -> {
-                                if (loadState.append.endOfPaginationReached) {
-                                    if (noMoreView != null) {
-                                        noMoreView.invoke()
-                                    } else {
-                                        NoMoreItem()
-                                    }
-                                }
+    LazyColumn(
+        modifier = modifier,
+        state = lazyListState
+    ) {
+        //条目布局
+        itemContent()
+        //加载更多状态：加载中和加载错误,没有更多
+
+        item {
+            lazyPagingItems.apply {
+                when (loadState.append) {
+                    is LoadState.Loading -> {
+                        if (loadingView != null) {
+                            loadingView.invoke()
+                        } else {
+                            LoadingItem()
+                        }
+                    }
+                    is LoadState.Error -> {
+                        if (errorView != null) {
+                            errorView.invoke()
+                        } else {
+                            ErrorItem { retry() }
+                        }
+
+                    }
+                    is LoadState.NotLoading -> {
+                        if (loadState.append.endOfPaginationReached) {
+                            if (noMoreView != null) {
+                                noMoreView.invoke()
+                            } else {
+                                NoMoreItem()
                             }
                         }
                     }
                 }
             }
         }
-        Surface(
-            modifier = Modifier
-                .padding(if (refreshing) 120.dp else 0.dp) //因为加载动画会缩回去导致显示不下，正在刷新时加个top
-                .size(200.dp)
-                .align(Alignment.TopCenter)
-                .pullRefreshIndicatorTransform(refreshState, true),
-            color = transparent,
-        ) {
-            Box {
-                if (refreshing) {
-                    AsyncImage(
-                        model = refreshImage,
-                        contentDescription = null,
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier
-                            .fillMaxSize()
-                    )
-                }
-            }
-        }
     }
-
-
 }
 
 
