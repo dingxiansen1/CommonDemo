@@ -53,4 +53,7 @@ dependencies {
     //viewPager
     implementation(Compose.accompanist_viewpager)
     implementation(Compose.accompanist_viewpager_indicators)
+
+    implementation(Compose.accompanist_web)
+
 }
