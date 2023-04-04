@@ -43,7 +43,7 @@ fun DefaultTheme(
             appTheme.mIsNightModel -> DarkColorScheme
             else -> LightColorScheme
         }
-        uiSystem.setStatusBarColor(colorScheme.background)
+        uiSystem.setSystemBarsColor(colorScheme.background)
         MaterialTheme(
             colorScheme = colorScheme, typography = Typography, content = content
         )

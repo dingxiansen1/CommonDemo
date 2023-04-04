@@ -1,9 +1,7 @@
 package com.dd.basiccompose.widget
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -26,7 +24,7 @@ fun DefaultTopBarBack(
     DefaultTopBar(
         title = title,
         modifier = modifier,
-        leftIcon = Icons.Filled.ArrowBack,
+        navigationIcon = Icons.Filled.ArrowBack,
         actions = actions,
         leftClick = {
             onClick.invoke()
@@ -40,7 +38,7 @@ fun DefaultTopBarBack(
 fun DefaultTopBar(
     title: String,
     modifier: Modifier = Modifier,
-    leftIcon: ImageVector? = null,
+    navigationIcon: ImageVector? = null,
     actions: @Composable RowScope.() -> Unit = {},
     leftClick: (() -> Unit) = {},
 ) {
@@ -50,12 +48,16 @@ fun DefaultTopBar(
         },
         modifier = modifier,
         navigationIcon = {
-            leftIcon?.let {
+            navigationIcon?.let {
                 IconButton(
                     onClick = {
                         leftClick.invoke()
                     }) {
-                    Icon(leftIcon, leftIcon.name, tint = MaterialTheme.colorScheme.onBackground)
+                    Icon(
+                        navigationIcon,
+                        navigationIcon.name,
+                        tint = MaterialTheme.colorScheme.onBackground
+                    )
                 }
             }
         },

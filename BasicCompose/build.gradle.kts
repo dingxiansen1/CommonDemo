@@ -51,7 +51,6 @@ dependencies {
     //一个系统状态栏库
     implementation(Compose.accompanist_systemuicontroller)
     //viewPager
-    implementation(Compose.accompanist_viewpager)
     implementation(Compose.accompanist_viewpager_indicators)
 
     implementation(Compose.accompanist_web)
