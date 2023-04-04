@@ -28,46 +28,51 @@ fun <T : Any> DefaultList(
     errorView: (@Composable () -> Unit)? = null,
     loadingView: (@Composable () -> Unit)? = null,
     noMoreView: (@Composable () -> Unit)? = null,
+    emptyView: (@Composable (LazyPagingItems<T>) -> Unit) = {},
     itemContent: LazyListScope.() -> Unit,
 ) {
+    if (lazyPagingItems.itemCount > 0) {
+        LazyColumn(
+            modifier = modifier, state = lazyListState
+        ) {
+            //条目布局
+            itemContent()
+            //加载更多状态：加载中和加载错误,没有更多
 
-    LazyColumn(
-        modifier = modifier,
-        state = lazyListState
-    ) {
-        //条目布局
-        itemContent()
-        //加载更多状态：加载中和加载错误,没有更多
-
-        item {
-            lazyPagingItems.apply {
-                when (loadState.append) {
-                    is LoadState.Loading -> {
-                        if (loadingView != null) {
-                            loadingView.invoke()
-                        } else {
-                            LoadingItem()
-                        }
-                    }
-                    is LoadState.Error -> {
-                        if (errorView != null) {
-                            errorView.invoke()
-                        } else {
-                            ErrorItem { retry() }
-                        }
-
-                    }
-                    is LoadState.NotLoading -> {
-                        if (loadState.append.endOfPaginationReached) {
-                            if (noMoreView != null) {
-                                noMoreView.invoke()
+            item {
+                lazyPagingItems.apply {
+                    when (loadState.append) {
+                        is LoadState.Loading -> {
+                            if (loadingView != null) {
+                                loadingView.invoke()
                             } else {
-                                NoMoreItem()
+                                LoadingItem()
+                            }
+                        }
+                        is LoadState.Error -> {
+                            if (errorView != null) {
+                                errorView.invoke()
+                            } else {
+                                ErrorItem { retry() }
+                            }
+
+                        }
+                        is LoadState.NotLoading -> {
+                            if (loadState.append.endOfPaginationReached) {
+                                if (noMoreView != null) {
+                                    noMoreView.invoke()
+                                } else {
+                                    NoMoreItem()
+                                }
                             }
                         }
                     }
                 }
             }
+        }
+    } else {
+        Box(modifier = modifier) {
+            emptyView.invoke(lazyPagingItems)
         }
     }
 }
