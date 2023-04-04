@@ -44,6 +44,7 @@ fun DefaultTheme(
             else -> LightColorScheme
         }
         uiSystem.setSystemBarsColor(colorScheme.background)
+        uiSystem.isSystemBarsVisible = true
         MaterialTheme(
             colorScheme = colorScheme, typography = Typography, content = content
         )
