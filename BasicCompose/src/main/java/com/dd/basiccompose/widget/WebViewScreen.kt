@@ -50,7 +50,7 @@ fun WebViewScreen(
                     }
                 }) {
                     Icon(
-                        imageVector = Icons.Default.ArrowBack,
+                        imageVector = Icons.Default.ArrowBackIos,
                         contentDescription = "返回",
                     )
                 }
