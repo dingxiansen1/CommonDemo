@@ -3,7 +3,7 @@ package com.dd.basiccompose.widget
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,7 +12,6 @@ import androidx.navigation.NavHostController
 import com.dd.basiccompose.controller.LocalNavController
 
 @SuppressLint("ModifierParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DefaultTopBarBack(
     title: String,
@@ -24,7 +23,7 @@ fun DefaultTopBarBack(
     DefaultTopBar(
         title = title,
         modifier = modifier,
-        navigationIcon = Icons.Filled.ArrowBack,
+        navigationIcon = Icons.Filled.ArrowBackIos,
         actions = actions,
         leftClick = {
             onClick.invoke()
