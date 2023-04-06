@@ -41,6 +41,8 @@ object AndroidX {
     const val appcompat = "androidx.appcompat:appcompat:1.6.0"
     const val splashscreen = "androidx.core:core-splashscreen:1.0.0"
     const val androidPaletteKtx = "androidx.palette:palette-ktx:1.0.0"
+    //脱糖
+    const val androidDesugarJdkLibs = "com.android.tools:desugar_jdk_libs:1.2.2"
 }
 
 object AndroidTest {
