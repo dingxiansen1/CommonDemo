@@ -36,7 +36,7 @@ fun SettingSwitch(
     title: String = "",
     description: String? = null,
     icon: ImageVector? = null,
-    iconTint: Color = MaterialTheme.colorScheme.onSurface,
+    iconTint: Color = MaterialTheme.colorScheme.primary,
     enabled: Boolean = true,
     isChecked: Boolean = true,
     modifier: Modifier = Modifier

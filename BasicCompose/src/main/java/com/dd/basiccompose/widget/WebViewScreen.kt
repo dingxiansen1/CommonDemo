@@ -4,6 +4,7 @@ package com.dd.basiccompose.widget
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.util.Log
+import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
@@ -88,6 +89,19 @@ fun WebViewScreen(
             navigator = navigator,
             onCreated = { webView ->
                 webView.settings.javaScriptEnabled = true
+                //设置自适应屏幕，两者合用
+                webView.settings.useWideViewPort = true //将图片调整到适合webview的大小
+                webView.settings.loadWithOverviewMode = true // 缩放至屏幕的大小
+                //缩放操作
+                webView.settings.setSupportZoom(true) //支持缩放，默认为true。是下面那个的前提。
+                webView.settings.builtInZoomControls = true //设置内置的缩放控件。若为false，则该WebView不可缩放
+                webView.settings.displayZoomControls = false //隐藏原生的缩放控件
+                //其他细节操作
+                webView.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK //关闭webview中缓存
+                webView.settings.allowFileAccess = true //设置可以访问文件
+                webView.settings.javaScriptCanOpenWindowsAutomatically = true //支持通过JS打开新窗口
+                webView.settings.loadsImagesAutomatically = true //支持自动加载图片
+                webView.settings.defaultTextEncodingName = "UTF-8"//设置编码格式
             },
             client = webClient
         )

@@ -36,7 +36,7 @@ fun SettingItem(
                     modifier = Modifier
                         .padding(start = 8.dp, end = 16.dp)
                         .size(25.dp),
-                    tint = MaterialTheme.colorScheme.secondary
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
             Column(

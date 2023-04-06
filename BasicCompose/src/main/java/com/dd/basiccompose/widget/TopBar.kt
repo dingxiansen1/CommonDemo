@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
 import com.dd.basiccompose.controller.LocalNavController
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("ModifierParameter")
 @Composable
 fun DefaultTopBarBack(
@@ -38,6 +39,7 @@ fun DefaultTopBar(
     title: String,
     modifier: Modifier = Modifier,
     navigationIcon: ImageVector? = null,
+    colors :TopAppBarColors = TopAppBarDefaults.smallTopAppBarColors(),
     actions: @Composable RowScope.() -> Unit = {},
     leftClick: (() -> Unit) = {},
 ) {
@@ -45,6 +47,7 @@ fun DefaultTopBar(
         title = {
             Text(text = title, style = MaterialTheme.typography.titleLarge)
         },
+        colors = colors,
         modifier = modifier,
         navigationIcon = {
             navigationIcon?.let {
