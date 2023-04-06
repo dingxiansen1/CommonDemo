@@ -14,11 +14,10 @@ class LibraryConventionPlugin : Plugin<Project> {
                 apply("org.jetbrains.kotlin.android")
                 apply("kotlin-kapt")
             }
-
-         /*   extensions.configure<LibraryExtension> {
-                configureKotlinAndroid(this)
+            extensions.configure<LibraryExtension> {
                 defaultConfig.targetSdk = Android.targetSdk
-            }*/
+                configureKotlinAndroid(this)
+            }
         }
     }
 
