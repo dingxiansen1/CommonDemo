@@ -27,9 +27,9 @@ android {
 
 dependencies {
 
-    implementation(project(":Utils"))
-    implementation(project(":Common"))
-    implementation(project(":Net"))
+    implementation(project(":Common:Utils"))
+    implementation(project(":Common:Common"))
+    implementation(project(":Common:Net"))
 
     //一个系统状态栏库
     implementation(Compose.accompanist_systemuicontroller)

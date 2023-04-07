@@ -13,8 +13,8 @@ dependencies {
     androidTestImplementation(AndroidTest.ext)
     androidTestImplementation(AndroidTest.espresso)
 
-    implementation(project(":Utils"))
-    implementation(project(":Net"))
+    implementation(project(":Common:Utils"))
+    implementation(project(":Common:Net"))
 
     implementation(Jetpack.work)
 
