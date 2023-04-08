@@ -5,9 +5,24 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import okhttp3.*
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
+val okHttpClient: OkHttpClient by lazy {
+
+    val builder = OkHttpClient.Builder()
+        .connectTimeout(15, TimeUnit.SECONDS)
+        .writeTimeout(15, TimeUnit.SECONDS)
+        .readTimeout(15, TimeUnit.SECONDS)
+        .callTimeout(60, TimeUnit.SECONDS)
+        .retryOnConnectionFailure(true)
+        .sslSocketFactory(
+            SSLSocketFactoryCompat(SSLSocketFactoryCompat.trustAllCert),
+            SSLSocketFactoryCompat.trustAllCert
+        )
+    builder.build()
+}
 
 suspend fun OkHttpClient.newCallResponseBody(
     retry: Int = 0,
@@ -35,6 +50,7 @@ suspend fun OkHttpClient.newCallResponse(
         return@withContext response!!
     }
 }
+
 /**
  * 通过协程suspendCancellableCoroutine同步方式拿到异步回调
  **/
