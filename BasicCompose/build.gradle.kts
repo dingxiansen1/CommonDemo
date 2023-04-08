@@ -27,15 +27,7 @@ android {
 
 dependencies {
 
-    implementation(project(":Common:Utils"))
-    implementation(project(":Common:Common"))
-    implementation(project(":Common:Net"))
-
-    //一个系统状态栏库
-    implementation(Compose.accompanist_systemuicontroller)
-    //viewPager
-    implementation(Compose.accompanist_viewpager_indicators)
-
-    implementation(Compose.accompanist_web)
-
+    implementation(project(":common:common"))
+    implementation(project(":common:utils"))
+    implementation(project(":common:net"))
 }

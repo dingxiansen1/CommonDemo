@@ -71,6 +71,9 @@ object Library {
 
         //coil图片加载
         addAll(coilLibrary)
+
+        add(Jetpack.work)
+        add(Jetpack.work_multiprocess)
     }
 
 }

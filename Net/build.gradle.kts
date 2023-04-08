@@ -9,5 +9,5 @@ android {
 dependencies {
     implementation(com.dd.version.Library.coroutineLibrary)
     implementation(com.dd.version.Library.netLibrary)
-    implementation(project(":Common:Utils"))
+    implementation(project(":common:utils"))
 }
