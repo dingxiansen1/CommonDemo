@@ -2,65 +2,85 @@ package com.dd.basiccompose.theme
 
 import android.content.res.Configuration
 import android.os.Build
-import com.dd.common.utils.DataStoreUtils
+import androidx.annotation.Keep
 import com.dd.utils.Utils
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
+
+enum class DarkMode {
+    Light, Dark, Auto
+}
+
+@Keep
+@Serializable
+data class ThemeState(
+    val darkMode: DarkMode = DarkMode.Auto,
+    val themeMode: ThemeMode = ThemeMode.Default,
+    val isDynamicColor: Boolean = true,
+)
 
 object ThemeUtils {
 
-    private const val IS_FOLLOW_THE_SYSTEM = "is_follow_the_system"
-
-    private const val IS_NIGHT_MODEL = "is_night_model"
-
-
-    val mAppTheme = MutableStateFlow(
-        AppTheme(
-            DataStoreUtils.getSyncData(IS_FOLLOW_THE_SYSTEM, false),
-            DataStoreUtils.getSyncData(IS_NIGHT_MODEL, false)
-        )
+    private val scope = CoroutineScope(
+        SupervisorJob() + Dispatchers.IO
     )
 
-    fun isNightTheme(): Boolean {
-        if (mAppTheme.value.mIsFollowTheSystem){
+    val appTheme: StateFlow<ThemeState> = Utils.getApp().themeState.data
+        .stateIn(
+            scope,
+            SharingStarted.WhileSubscribed(5_000),
+            ThemeState()
+        )
+
+    fun getDarkMode(): DarkMode {
+        return appTheme.value.darkMode
+    }
+
+    fun isDarkMode(): Boolean {
+        if (appTheme.value.darkMode == DarkMode.Auto){
             return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 Utils.getApp().resources.configuration.isNightModeActive
             } else {
                 Utils.getApp().resources.configuration.uiMode == Configuration.UI_MODE_NIGHT_YES
             }
         }
-        if (mAppTheme.value.mIsNightModel){
+        if (appTheme.value.darkMode == DarkMode.Dark){
             return true
         }
         return false
     }
 
-    /**
-     * 设置当前主题相反的主题
-     * 注意:如果当前模式是跟随系统
-     * 那么改状态会丢失
-     **/
-    fun setUnCurTheme(){
-        setNightModel(!isNightTheme())
+    fun changeDarkMode(value: DarkMode) {
+        scope.launch {
+            Utils.getApp().themeState.updateData {
+                appTheme.value.copy(darkMode = value)
+            }
+        }
     }
 
-    fun setFollowTheSystem(value: Boolean) {
-        mAppTheme.update {
-            it.copy(mIsFollowTheSystem = value, mIsNightModel = false)
+    fun changeThemeMode(value: ThemeMode) {
+        scope.launch {
+            Utils.getApp().themeState.updateData {
+                appTheme.value.copy(themeMode = value)
+            }
         }
-        DataStoreUtils.putSyncData(IS_FOLLOW_THE_SYSTEM, value)
     }
-
-    fun setNightModel(value: Boolean) {
-        mAppTheme.update {
-            it.copy(mIsNightModel = value, mIsFollowTheSystem = false)
+    fun changeIsDynamicColor(value: Boolean) {
+        scope.launch {
+            Utils.getApp().themeState.updateData {
+                appTheme.value.copy(isDynamicColor = value)
+            }
         }
-        DataStoreUtils.putSyncData(IS_NIGHT_MODEL, value)
+    }
+    fun isSupportDynamicColor(): Boolean {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     }
 
 }
 
-data class AppTheme(
-    val mIsFollowTheSystem: Boolean,
-    val mIsNightModel: Boolean,
-)

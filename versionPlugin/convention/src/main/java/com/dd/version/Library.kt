@@ -61,6 +61,8 @@ object Library {
         //lifecycle
         addAll(lifecycleLibrary)
 
+        add(Other.serialization)
+
         add(Jetpack.datastore_core)
         add(Jetpack.datastore_preferences)
         //App Startup 启动优化

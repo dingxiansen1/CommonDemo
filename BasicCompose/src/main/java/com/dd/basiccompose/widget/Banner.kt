@@ -18,7 +18,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 
@@ -41,7 +40,7 @@ interface BannerData {
  * [timeMillis] 停留时间
  * [onClick] 轮播图点击事件
  */
-@OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Banner(
     list: List<BannerData>?,

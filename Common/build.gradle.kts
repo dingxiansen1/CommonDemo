@@ -16,8 +16,6 @@ dependencies {
     implementation(project(":common:utils"))
     implementation(project(":common:net"))
 
-    implementation(Jetpack.work)
-
     //leakcanary
     debugImplementation(Other.leakcanary)
 
