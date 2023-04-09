@@ -5,6 +5,7 @@ plugins {
     id("com.dd.common")
     id("com.dd.compose")
     id("com.dd.test")
+    id("com.dd.serialization")
 }
 
 

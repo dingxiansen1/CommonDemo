@@ -2,6 +2,7 @@ import com.dd.version.*
 plugins {
     id("com.dd.library")
     id("com.dd.common")
+    id("com.dd.serialization")
 }
 android {
     namespace = "com.dd.common"

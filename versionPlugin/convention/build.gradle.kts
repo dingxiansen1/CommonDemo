@@ -52,6 +52,12 @@ gradlePlugin {
             // 实现这个插件的类的路径
             implementationClass = "HiltConventionPlugin"
         }
+        register("serialization") {
+            // 在 app 模块需要通过 id 引用这个插件
+            id = "com.dd.serialization"
+            // 实现这个插件的类的路径
+            implementationClass = "SerializationConventionPlugin"
+        }
         register("test") {
             // 在 app 模块需要通过 id 引用这个插件
             id = "com.dd.test"
