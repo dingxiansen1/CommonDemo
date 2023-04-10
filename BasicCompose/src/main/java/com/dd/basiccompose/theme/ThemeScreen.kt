@@ -26,7 +26,7 @@ import com.dd.basiccompose.R
 import com.dd.basiccompose.controller.LocalNavController
 
 @Composable
-fun ThemeRoute() {
+internal fun ThemeRoute() {
     ThemeScreen()
 }
 

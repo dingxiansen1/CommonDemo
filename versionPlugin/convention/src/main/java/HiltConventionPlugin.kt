@@ -9,6 +9,7 @@ class HiltConventionPlugin : Plugin<Project> {
             //添加插件
             with(pluginManager) {
                 apply("dagger.hilt.android.plugin")
+                apply("org.jetbrains.kotlin.kapt")
             }
             dependencies {
                 add("implementation", Jetpack.hilt)
