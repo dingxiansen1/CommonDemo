@@ -39,7 +39,7 @@ fun DefaultTopBar(
     title: String,
     modifier: Modifier = Modifier,
     navigationIcon: ImageVector? = null,
-    colors :TopAppBarColors = TopAppBarDefaults.smallTopAppBarColors(),
+    colors: TopAppBarColors = TopAppBarDefaults.smallTopAppBarColors(),
     actions: @Composable RowScope.() -> Unit = {},
     leftClick: (() -> Unit) = {},
 ) {
