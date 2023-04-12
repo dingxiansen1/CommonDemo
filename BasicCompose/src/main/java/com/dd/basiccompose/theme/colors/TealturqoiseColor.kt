@@ -10,7 +10,7 @@ object TealturqoiseColor {
     object Light {
         private val primary = Color(0xFF008080)
         private val onPrimary = Color(0xFFFFFFFF)
-        private val primaryContainer = Color(0xFF008080)
+        private val primaryContainer = Color(0xFF76B1B1)
         private val onPrimaryContainer = Color(0xFFFFFFFF)
         private val secondary = Color(0xFF008080)
         private val onSecondary = Color(0xFFFFFFFF)

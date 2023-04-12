@@ -9,7 +9,7 @@ object TakoColor {
     object Light {
         private val primary = Color(0xFF66577E)
         private val onPrimary = Color(0xFFF3B375)
-        private val primaryContainer = Color(0xFF66577E)
+        private val primaryContainer = Color(0xFF8D80A2)
         private val onPrimaryContainer = Color(0xFFF3B375)
         private val secondary = Color(0xFF66577E)
         private val onSecondary = Color(0xFFF3B375)
