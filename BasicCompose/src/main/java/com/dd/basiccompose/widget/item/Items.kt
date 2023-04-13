@@ -3,13 +3,85 @@ package com.dd.basiccompose.widget.item
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ArrowForwardIos
+import androidx.compose.material.icons.outlined.Cached
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+
+@Preview
+@Composable
+fun SettingItemWithDataPreview() {
+    SettingItemWithData(
+        title = "清理缓存",
+        icon = Icons.Outlined.Cached,
+        data = "130MB"
+    ) {
+
+    }
+}
+
+@SuppressLint("ModifierParameter")
+@Composable
+fun SettingItemWithData(
+    title: String,
+    icon: ImageVector? = null,
+    data: String = "",
+    modifier: Modifier = Modifier
+        .fillMaxWidth()
+        .padding(16.dp, 20.dp),
+    onClick: () -> Unit
+) {
+    Surface(
+        modifier = Modifier.clickable { onClick() }
+    ) {
+        Row(
+            modifier = modifier,
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                icon?.let {
+                    Icon(
+                        imageVector = it,
+                        contentDescription = it.name,
+                        modifier = Modifier.padding(end = 16.dp),
+                    )
+                }
+                Text(
+                    text = title,
+                    maxLines = 1,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = data,
+                    maxLines = 1,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(end = 16.dp),
+                )
+                Icon(
+                    imageVector = Icons.Outlined.ArrowForwardIos,
+                    contentDescription = Icons.Outlined.ArrowForwardIos.name,
+                )
+            }
+        }
+    }
+}
+
 
 @SuppressLint("ModifierParameter")
 @Composable
