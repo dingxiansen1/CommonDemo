@@ -187,9 +187,10 @@ fun SettingItemWithData(
                 Text(
                     text = data,
                     maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(end = 16.dp),
+                    modifier = Modifier.padding(end = 16.dp).fillMaxWidth(0.6f),
                 )
                 Icon(
                     imageVector = Icons.Outlined.ArrowForwardIos,
