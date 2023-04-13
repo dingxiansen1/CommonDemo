@@ -7,7 +7,7 @@ object CoroutineUtils {
 
     private const val TAG = "CoroutineUtils"
 
-    private fun errorHandler(tag: String): CoroutineExceptionHandler =
+    fun errorHandler(tag: String): CoroutineExceptionHandler =
         CoroutineExceptionHandler { _, throwable ->
             if (throwable !is CancellationException) {
                 var error = ""
