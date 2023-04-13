@@ -68,3 +68,35 @@ fun DefaultTopBar(
         },
     )
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SearchTopBar(
+    text: String,
+    hint: String = "",
+    navigateIcon: ImageVector? = null,
+    navigateClick: () -> Unit = {},
+    actions: @Composable RowScope.() -> Unit = {},
+    onTextChanged: ((String) -> Unit),
+) {
+    CenterAlignedTopAppBar(
+        title = {
+            SearchBar(text = text, hint = hint, onTextChanged = onTextChanged)
+        },
+        navigationIcon = {
+            navigateIcon?.let {
+                IconButton(onClick = {
+                    navigateClick.invoke()
+                }) {
+                    Icon(
+                        imageVector = navigateIcon,
+                        contentDescription = navigateIcon.name,
+                    )
+                }
+            }
+        },
+        actions = {
+            actions.invoke(this)
+        }
+    )
+}
