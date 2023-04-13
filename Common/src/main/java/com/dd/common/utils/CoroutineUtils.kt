@@ -5,24 +5,24 @@ import kotlinx.coroutines.*
 
 object CoroutineUtils {
 
-    const val TAG = "CoroutineUtils"
+    private const val TAG = "CoroutineUtils"
 
-    val errorHandler by lazy {
+    private fun errorHandler(tag: String): CoroutineExceptionHandler =
         CoroutineExceptionHandler { _, throwable ->
             if (throwable !is CancellationException) {
                 var error = ""
                 for (e in throwable.stackTrace) {
                     error += "e" + "\n"
                 }
-                LogUtils.e(TAG, error)
+                LogUtils.e(tag, error)
             }
         }
-    }
+
     /**
-    * 返回一个负责IO工作的协程作用域
-    * */
-    fun getAppCoroutine() = CoroutineScope(
-        SupervisorJob() + Dispatchers.IO + errorHandler
+     * 返回一个负责IO工作的协程作用域
+     * */
+    fun getAppCoroutine(tag: String = TAG) = CoroutineScope(
+        SupervisorJob() + Dispatchers.IO + errorHandler(tag)
     )
 
 
