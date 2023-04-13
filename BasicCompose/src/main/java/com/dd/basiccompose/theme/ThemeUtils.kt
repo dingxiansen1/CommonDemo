@@ -3,10 +3,8 @@ package com.dd.basiccompose.theme
 import android.content.res.Configuration
 import android.os.Build
 import androidx.annotation.Keep
+import com.dd.common.utils.CoroutineUtils
 import com.dd.utils.Utils
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -27,9 +25,7 @@ data class ThemeState(
 
 object ThemeUtils {
 
-    private val scope = CoroutineScope(
-        SupervisorJob() + Dispatchers.IO
-    )
+    private val scope = CoroutineUtils.getAppCoroutine()
 
     val appTheme: StateFlow<ThemeState> = Utils.getApp().themeState.data
         .stateIn(
@@ -43,14 +39,14 @@ object ThemeUtils {
     }
 
     fun isDarkMode(): Boolean {
-        if (appTheme.value.darkMode == DarkMode.Auto){
+        if (appTheme.value.darkMode == DarkMode.Auto) {
             return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 Utils.getApp().resources.configuration.isNightModeActive
             } else {
                 Utils.getApp().resources.configuration.uiMode == Configuration.UI_MODE_NIGHT_YES
             }
         }
-        if (appTheme.value.darkMode == DarkMode.Dark){
+        if (appTheme.value.darkMode == DarkMode.Dark) {
             return true
         }
         return false
@@ -71,6 +67,7 @@ object ThemeUtils {
             }
         }
     }
+
     fun changeIsDynamicColor(value: Boolean) {
         scope.launch {
             Utils.getApp().themeState.updateData {
@@ -78,6 +75,7 @@ object ThemeUtils {
             }
         }
     }
+
     fun isSupportDynamicColor(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     }
