@@ -12,7 +12,7 @@ object CoroutineUtils {
             if (throwable !is CancellationException) {
                 var error = ""
                 for (e in throwable.stackTrace) {
-                    error += "e" + "\n"
+                    error += e.toString() + "\n"
                 }
                 LogUtils.e(tag, error)
             }
