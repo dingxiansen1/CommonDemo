@@ -7,7 +7,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material.icons.outlined.ArrowForwardIos
 import androidx.compose.material.icons.outlined.Cached
-import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -40,12 +39,24 @@ fun SettingItemPreview() {
         Spacer(modifier = Modifier.height(16.dp))
 
         val list = arrayListOf("家", "公司")
+        var firstItem by remember {
+            mutableStateOf(list[0])
+        }
+        var show by remember {
+            mutableStateOf(false)
+        }
         SettingItemDropDownMenu(
+            state = show,
             title = "地址",
-            firstItem = list[0],
+            curItem = firstItem,
+            open = { show = true },
+            close = { show = false },
             items = list,
+            itemText = {
+                it.toString()
+            }
         ) {
-
+            firstItem = list[it]
         }
     }
 
@@ -54,21 +65,21 @@ fun SettingItemPreview() {
 @SuppressLint("ModifierParameter")
 @Composable
 fun SettingItemDropDownMenu(
+    state: Boolean,
+    open: () -> Unit,
+    close: () -> Unit,
     title: String,
     icon: ImageVector? = null,
-    firstItem: String,
-    items: List<String>,
+    curItem: String,
+    items: List<Any>,
+    itemText: (Any) -> String,
     modifier: Modifier = Modifier
         .fillMaxWidth()
         .padding(16.dp, 20.dp),
-    onClick: (Int) -> Unit
+    onClick: (Int) -> Unit,
 ) {
-    var show by remember {
-        mutableStateOf(false)
-    }
-
     Surface(
-        modifier = Modifier.clickable { show = true }
+        modifier = if (items.isNotEmpty()) Modifier.clickable { open.invoke() } else Modifier
     ) {
         Row(
             modifier = modifier,
@@ -95,35 +106,31 @@ fun SettingItemDropDownMenu(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-
-                DropdownMenu(
-                    expanded = show,
-                    offset = DpOffset(0.dp, 0.dp),
-                    onDismissRequest = { show = false },
-                ) {
-                    items.forEachIndexed { index, item ->
-                        DropdownMenuItem(
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Outlined.Share,
-                                    contentDescription = Icons.Outlined.Share.name,
-                                )
-                            },
-                            text = {
-                                Text(
-                                    text = item,
-                                    style = MaterialTheme.typography.titleMedium,
-                                )
-                            },
-                            onClick = {
-                                onClick.invoke(index)
-                            },
-                        )
+                if (items.isNotEmpty()) {
+                    DropdownMenu(
+                        expanded = state,
+                        offset = DpOffset(0.dp, 0.dp),
+                        onDismissRequest = close::invoke,
+                    ) {
+                        items.forEachIndexed { index, item ->
+                            DropdownMenuItem(
+                                text = {
+                                    Text(
+                                        text = itemText.invoke(item),
+                                        style = MaterialTheme.typography.titleMedium,
+                                    )
+                                },
+                                onClick = {
+                                    close.invoke()
+                                    onClick.invoke(index)
+                                },
+                            )
+                        }
                     }
                 }
 
                 Text(
-                    text = firstItem,
+                    text = curItem,
                     maxLines = 1,
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface,
