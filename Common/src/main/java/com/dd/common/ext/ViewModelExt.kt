@@ -15,7 +15,7 @@ fun ViewModel.launch(
     block: suspend CoroutineScope.() -> Unit
 ) = this.viewModelScope.launch(context, start, block)
 
-fun <T> ViewModel.observerFlow(data: Flow<T>, action: suspend (value: T) -> Unit) {
+inline fun <T> ViewModel.observerFlow(data: Flow<T>, crossinline action: suspend (value: T) -> Unit) {
     launch {
         data.collect {
             action.invoke(it)
