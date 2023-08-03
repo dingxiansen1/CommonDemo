@@ -30,7 +30,7 @@ fun Switch(
             with(MaterialTheme.colorScheme){
                 if (checked) primary
                 else surfaceVariant
-            }
+            }, label = ""
         ).value
     ) {
         Box(
@@ -41,13 +41,13 @@ fun Switch(
                 modifier = Modifier
                     .size(20.dp)
                     .align(Alignment.CenterStart)
-                    .offset(x = animateDpAsState(if (checked) 32.dp else 4.dp).value),
+                    .offset(x = animateDpAsState(if (checked) 32.dp else 4.dp, label = "").value),
                 shape = CircleShape,
                 color = animateColorAsState(
                     with(MaterialTheme.colorScheme){
                         if (checked) onPrimary
                         else outline
-                    }
+                    }, label = ""
                 ).value
             ) {}
         }

@@ -41,6 +41,7 @@ object AndroidX {
     const val appcompat = "androidx.appcompat:appcompat:1.6.0"
     const val splashscreen = "androidx.core:core-splashscreen:1.0.0"
     const val androidPaletteKtx = "androidx.palette:palette-ktx:1.0.0"
+    const val webkit = "androidx.webkit:webkit:1.7.0"
     //脱糖
     const val androidDesugarJdkLibs = "com.android.tools:desugar_jdk_libs:1.2.2"
 }
@@ -137,7 +138,10 @@ object Other {
     const val coil = "io.coil-kt:coil:$coil_version"
     const val coil_compose = "io.coil-kt:coil-compose:$coil_version"
     const val coil_gif = "io.coil-kt:coil-gif:$coil_version"
-    const val okhttp3 = "com.squareup.okhttp3:okhttp:4.10.0"
+
+    private const val okhttp_version = "4.10.0"
+    const val okhttp3 = "com.squareup.okhttp3:okhttp:$okhttp_version"
+    const val okhttp3_logging = "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
     private const val retrofit2_version = "2.9.0"
     const val retrofit = "com.squareup.retrofit2:retrofit:$retrofit2_version"

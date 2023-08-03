@@ -2,10 +2,17 @@ package com.dd.basiccompose.widget
 
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Bitmap
+import android.os.Build
 import android.util.Log
+import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
 import android.webkit.WebSettings
 import android.webkit.WebView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,9 +22,16 @@ import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.webkit.WebSettingsCompat
+import androidx.webkit.WebViewFeature
+import com.dd.common.web.WebViewHelper
+import com.dd.common.web.WebViewManager
+import com.dd.common.web.injectVConsoleJs
 import com.google.accompanist.web.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -26,11 +40,11 @@ import com.google.accompanist.web.*
 fun WebViewScreen(
     webUrl: String,
     title: String?,
-    navCtrl: NavHostController,
     actions: @Composable RowScope.() -> Unit = {},
 ) {
-    val url by remember { mutableStateOf(webUrl) }
-    val state = rememberWebViewState(url = url)
+    val context = LocalContext.current
+    var webView by remember { mutableStateOf<WebView?>(null) }
+    val state = rememberWebViewState(webUrl)
     val navigator = rememberWebViewNavigator()
     Column {
         TopAppBar(
@@ -44,10 +58,12 @@ fun WebViewScreen(
             },
             navigationIcon = {
                 IconButton(onClick = {
-                    if (navigator.canGoBack) {
-                        navigator.navigateBack()
-                    } else {
-                        navCtrl.navigateUp()
+                    webView?.let {
+                        if (!WebViewHelper.goBack(it, webUrl)) {
+                            if (context is AppCompatActivity) {
+                                context.onBackPressedDispatcher.onBackPressed()
+                            }
+                        }
                     }
                 }) {
                     Icon(
@@ -60,25 +76,72 @@ fun WebViewScreen(
                 actions.invoke(this)
             }
         )
-
-
-        val loadingState = state.loadingState
-        if (loadingState is LoadingState.Loading) {
+        var progress by remember { mutableStateOf(0f) }
+        AnimatedVisibility(visible = (progress > 0f && progress < 1f)) {
             LinearProgressIndicator(
-                progress = loadingState.progress,
-                modifier = Modifier.fillMaxWidth()
+                progress = progress,
+                modifier = Modifier.fillMaxWidth(),
             )
         }
+        var injectState by remember { mutableStateOf(false) }
+        //注入VConsole以便于H5调试
+        val injectVConsole by remember { mutableStateOf(false) }
 
-        val webClient = remember {
-            object : AccompanistWebViewClient() {
-                override fun onPageStarted(
-                    view: WebView?,
-                    url: String?,
-                    favicon: Bitmap?
-                ) {
-                    super.onPageStarted(view, url, favicon)
-                    Log.d("Accompanist WebView", "Page started loading for $url")
+        val client = object : AccompanistWebViewClient() {
+
+            override fun shouldInterceptRequest(
+                view: WebView?,
+                request: WebResourceRequest?
+            ): WebResourceResponse? {
+                if (view != null && request != null) {
+                    when {
+                        WebViewHelper.isAssetsResource(request) -> {
+                            return WebViewHelper.assetsResourceRequest(view.context, request)
+                        }
+                        WebViewHelper.isCacheResource(request) -> {
+                            return WebViewHelper.cacheResourceRequest(view.context, request)
+                        }
+                    }
+                }
+                return super.shouldInterceptRequest(view, request)
+            }
+
+            override fun shouldOverrideUrlLoading(
+                view: WebView?,
+                request: WebResourceRequest?
+            ): Boolean {
+                if (view != null && request != null && request.url != null) {
+                    if ("http" != request.url.scheme && "https" != request.url.scheme) {
+                        try {
+                            view.context.startActivity(Intent(Intent.ACTION_VIEW, request.url))
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                        return true
+                    }
+                }
+                return false
+            }
+
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+                injectState = false
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                injectState = false
+            }
+        }
+
+        val chromeClient = object : AccompanistWebChromeClient() {
+
+            override fun onProgressChanged(view: WebView?, newProgress: Int) {
+                super.onProgressChanged(view, newProgress)
+                progress = (newProgress / 100f).coerceIn(0f, 1f)
+                if (newProgress > 80 && injectVConsole && !injectState) {
+                    view?.apply { evaluateJavascript(context.injectVConsoleJs()) {} }
+                    injectState = true
                 }
             }
         }
@@ -89,21 +152,23 @@ fun WebViewScreen(
             navigator = navigator,
             onCreated = { webView ->
                 webView.settings.javaScriptEnabled = true
-                //设置自适应屏幕，两者合用
-                webView.settings.useWideViewPort = true //将图片调整到适合webview的大小
-                webView.settings.loadWithOverviewMode = true // 缩放至屏幕的大小
-                //缩放操作
-                webView.settings.setSupportZoom(true) //支持缩放，默认为true。是下面那个的前提。
-                webView.settings.builtInZoomControls = true //设置内置的缩放控件。若为false，则该WebView不可缩放
-                webView.settings.displayZoomControls = false //隐藏原生的缩放控件
-                //其他细节操作
-                webView.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK //关闭webview中缓存
-                webView.settings.allowFileAccess = true //设置可以访问文件
-                webView.settings.javaScriptCanOpenWindowsAutomatically = true //支持通过JS打开新窗口
-                webView.settings.loadsImagesAutomatically = true //支持自动加载图片
-                webView.settings.defaultTextEncodingName = "UTF-8"//设置编码格式
+                val forceDarkMode = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    webView.settings.isAlgorithmicDarkeningAllowed = forceDarkMode
+                } else {
+                    if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+                        WebSettingsCompat.setForceDark(
+                            webView.settings,
+                            if (forceDarkMode) WebSettingsCompat.FORCE_DARK_ON else WebSettingsCompat.FORCE_DARK_OFF
+                        )
+                    }
+                }
+                WebViewHelper.setDownloadListener(webView)
             },
-            client = webClient
+            onDispose = { WebViewManager.recycle(it) },
+            client = client,
+            chromeClient = chromeClient,
+            factory = { context -> WebViewManager.obtain(context).also { webView = it } }
         )
     }
 }

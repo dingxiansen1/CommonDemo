@@ -34,6 +34,7 @@ object Library {
 
     val netLibrary = arrayListOf<String>().apply {
         add(Other.okhttp3)
+        add(Other.okhttp3_logging)
         add(Other.retrofit)
         add(Other.retrofit_gson)
         add(Other.jsoup)
@@ -53,6 +54,7 @@ object Library {
         add(AndroidX.core)
         add(AndroidX.appcompat)
         add(AndroidX.androidPaletteKtx)
+        add(AndroidX.webkit)
         //kotlin 协程
         addAll(coroutineLibrary)
 
