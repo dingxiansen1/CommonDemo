@@ -9,7 +9,7 @@ fun DependencyHandler.implementation(list: List<String>) {
 }
 
 object Version {
-    const val compose_version = "1.4.1"
+    const val compose_version = "1.4.3"
 }
 
 object Maven {
