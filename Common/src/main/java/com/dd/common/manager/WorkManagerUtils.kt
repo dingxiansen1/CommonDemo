@@ -23,14 +23,16 @@ object WorkManagerUtils {
     /**
      * 创建定时任务,每隔span小时执行一次任务
      * @param inputData work所需参数
-     * @param span 定期时间跨度  单位:小时
+     * @param span 定期时间跨度
+     * @param timeUnit 定期时间单位
      **/
     inline fun <reified coroutineWorker : CoroutineWorker> createTiming(
         inputData: Data,
-        span: Long
+        span: Long,
+        timeUnit: TimeUnit = TimeUnit.HOURS,
     ) {
         val workRequest =
-            PeriodicWorkRequestBuilder<coroutineWorker>(span, TimeUnit.HOURS)
+            PeriodicWorkRequestBuilder<coroutineWorker>(span, timeUnit)
                 .setInputData(inputData)
                 .build()
         WorkManager
