@@ -5,28 +5,26 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Build
-import android.util.Log
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
-import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import com.dd.common.web.WebViewHelper
@@ -46,7 +44,11 @@ fun WebViewScreen(
     var webView by remember { mutableStateOf<WebView?>(null) }
     val state = rememberWebViewState(webUrl)
     val navigator = rememberWebViewNavigator()
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .systemBarsPadding()
+    ) {
         TopAppBar(
             title = {
                 Text(
@@ -98,6 +100,7 @@ fun WebViewScreen(
                         WebViewHelper.isAssetsResource(request) -> {
                             return WebViewHelper.assetsResourceRequest(view.context, request)
                         }
+
                         WebViewHelper.isCacheResource(request) -> {
                             return WebViewHelper.cacheResourceRequest(view.context, request)
                         }
@@ -149,10 +152,12 @@ fun WebViewScreen(
         WebView(
             state = state,
             modifier = Modifier.weight(1f),
+            captureBackPresses = false,
             navigator = navigator,
             onCreated = { webView ->
                 webView.settings.javaScriptEnabled = true
-                val forceDarkMode = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
+                val forceDarkMode =
+                    AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     webView.settings.isAlgorithmicDarkeningAllowed = forceDarkMode
                 } else {
