@@ -76,6 +76,8 @@ object Library {
 
         add(Jetpack.work)
         add(Jetpack.work_multiprocess)
+
+        add(Other.util)
     }
 
 }

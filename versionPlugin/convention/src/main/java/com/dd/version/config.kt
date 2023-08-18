@@ -151,4 +151,6 @@ object Other {
 
     const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
 
+    const val util = "com.blankj:utilcodex:1.31.1"
+
 }
