@@ -1,6 +1,6 @@
 package com.dd.common.utils
 
-import com.dd.utils.log.LogUtils
+import com.blankj.utilcode.util.LogUtils
 import kotlinx.coroutines.*
 
 object CoroutineUtils {
